@@ -20,14 +20,14 @@
         <p>Max Meyers (maxjacob), Michelle Pan (mxpan), and Matthew Pick (mpick)</p>
 
         <ol>
-          <li><a href="milestone1.php">Milestone 1</a></li>
-          <li><a href="milestone2.php">Milestone 2</a></li>
-          <li><a href="milestone3.php">Milestone 3</a></li>
-          <li><a href="milestone4.php">Milestone 4</a></li>
-          <li><a href="milestone5.php">Milestone 5</a></li>
-          <li><a href="milestone6.php">Milestone 6</a></li>
-          <li><a href="milestone7.php">Milestone 7</a></li>
-          <li><a href="milestone8.php">Milestone 8</a></li>
+          <li><a href="milestone1.html">Milestone 1</a></li>
+          <li><a href="milestone2.html">Milestone 2</a></li>
+          <li><a href="milestone3.html">Milestone 3</a></li>
+          <li><a href="milestone4.html">Milestone 4</a></li>
+          <li><a href="milestone5.html">Milestone 5</a></li>
+          <li><a href="milestone6.html">Milestone 6</a></li>
+          <li><a href="milestone7.html">Milestone 7</a></li>
+          <li><a href="milestone8.html">Milestone 8</a></li>
         </ol>
 
         <p class="view"><a href="https://github.com/mxpan/m3">View our Project on GitHub <small>mxpan/m3</small></a></p>
