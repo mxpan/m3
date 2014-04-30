@@ -1,0 +1,18 @@
+//
+//  M3ThreadViewController.h
+//  Silent Film
+//
+//  Created by Max Meyers on 4/29/14.
+//  Copyright (c) 2014 M3. All rights reserved.
+//
+
+@class M3Thread;
+
+@interface M3ThreadViewController : UIViewController
+
+@property M3Thread *thread;
+
+- (id)initWithThread:(M3Thread*)thread;
+- (void)recordedVideoWithFileAtURL:(NSURL *)url;
+
+@end

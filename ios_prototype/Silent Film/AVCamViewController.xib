@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AVCamViewController">
+            <connections>
+                <outlet property="cameraButton" destination="kW3-tI-fWC" id="FcV-Gf-Uy0"/>
+                <outlet property="previewView" destination="ZWZ-Pv-6G0" id="4Ef-BP-JKD"/>
+                <outlet property="recordButton" destination="sbe-CC-wBP" id="4lq-kK-yac"/>
+                <outlet property="view" destination="EIr-tn-fmg" id="SSz-tY-Rxq"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="EIr-tn-fmg">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZWZ-Pv-6G0" customClass="AVCamPreviewView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sbe-CC-wBP">
+                            <rect key="frame" x="32" y="516" width="72" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="aIA-Pe-WPi"/>
+                                <constraint firstAttribute="width" constant="72" id="e5X-xU-cv5"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <state key="normal" title="Record">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="toggleMovieRecording:" destination="-1" eventType="touchUpInside" id="MBq-gw-CTx"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kW3-tI-fWC">
+                            <rect key="frame" x="208" y="513" width="70" height="36"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="72" id="ito-Ps-RWo"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <state key="normal" title="Camera">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="changeCamera:" destination="-1" eventType="touchUpInside" id="dLB-ab-iKW"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="sbe-CC-wBP" secondAttribute="bottom" constant="22" id="kh1-px-WPI"/>
+                    </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="GUr-td-ZW5" appends="YES" id="eyh-5a-ohd"/>
+                    </connections>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstItem="ZWZ-Pv-6G0" firstAttribute="leading" secondItem="EIr-tn-fmg" secondAttribute="leading" id="a3v-3m-fK5"/>
+                <constraint firstAttribute="trailing" secondItem="ZWZ-Pv-6G0" secondAttribute="trailing" id="dtY-Mf-fA4"/>
+                <constraint firstItem="ZWZ-Pv-6G0" firstAttribute="top" secondItem="EIr-tn-fmg" secondAttribute="top" id="emM-74-Itr"/>
+                <constraint firstAttribute="bottom" secondItem="ZWZ-Pv-6G0" secondAttribute="bottom" id="gyf-ET-eOl"/>
+            </constraints>
+        </view>
+        <tapGestureRecognizer id="GUr-td-ZW5">
+            <connections>
+                <action selector="focusAndExposeTap:" destination="-1" id="P87-Ga-eoE"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+</document>
