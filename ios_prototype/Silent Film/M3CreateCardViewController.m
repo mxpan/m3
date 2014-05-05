@@ -7,6 +7,7 @@
 //
 
 #import "M3CreateCardViewController.h"
+#import "AVCamViewController.h"
 
 @interface M3CreateCardViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *screenTitle;
@@ -34,6 +35,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    if (!self.isTitleCard) [self.screenTitle setText:@"Create Ending Card"];
 }
 
 - (IBAction)userDoneEnteringText:(UITextField *)sender {
@@ -45,6 +47,18 @@
     [self setCardLabelText: [self.inputTextField text]];
     UIImage *image = [self createImage];
 //    [self saveImage:image];
+    
+    if (self.isTitleCard){
+        // need to record video
+        AVCamViewController *avCam = [[AVCamViewController alloc] init];
+        avCam.threadViewController = self.threadViewController;
+//        [self dismissViewControllerAnimated:YES completion:nil];
+        avCam.titleCard = image;
+//        [self dismissViewControllerAnimated:YES completion:nil];
+        [self presentViewController:avCam animated:YES completion:nil];
+    } else {
+        // is ending card so render video
+    }
 }
 
 - (void) setCardLabelText: (NSString *)text {
@@ -76,5 +90,17 @@
     // Save image.
     [UIImagePNGRepresentation(image) writeToFile:filePath atomically:YES];
 }
+
+- (IBAction)dontCreateCardPressed:(UIButton *)sender {
+    if (self.isTitleCard) {
+        AVCamViewController *avCam = [[AVCamViewController alloc] init];
+        avCam.threadViewController = self.threadViewController;
+//        [self dismissViewControllerAnimated:YES completion:nil];
+        [self presentViewController:avCam animated:YES completion:nil];
+    } else {
+         // is ending card so render video
+    }
+}
+
 
 @end

@@ -51,5 +51,6 @@
 @interface AVCamViewController : UIViewController
 
 @property (weak) M3ThreadViewController *threadViewController;
+@property UIImage * titleCard;
 
 @end

@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "M3ThreadViewController.h"
 
 @interface M3CreateCardViewController : UIViewController
+
+@property BOOL isTitleCard;
+@property (weak) M3ThreadViewController *threadViewController;
 
 @end

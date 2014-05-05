@@ -56,13 +56,22 @@
 //    [alertView show];
     M3CreateCardViewController *cardView = [[M3CreateCardViewController alloc] init];
 //    [self.navigationController pushViewController:cardView animated:YES];
+    cardView.isTitleCard = true;
+    cardView.threadViewController = self;
     [self presentViewController:cardView animated:YES completion:nil];
+
     
 #else // TARGET_IPHONE_SIMULATOR
     
-    AVCamViewController *avCam = [[AVCamViewController alloc] init];
-    avCam.threadViewController = self;
-    [self.navigationController pushViewController:avCam animated:YES];
+//    AVCamViewController *avCam = [[AVCamViewController alloc] init];
+//    avCam.threadViewController = self;
+//    [self.navigationController pushViewController:avCam animated:YES];
+    
+    M3CreateCardViewController *cardView = [[M3CreateCardViewController alloc] init];
+    cardView.isTitleCard = true;
+    cardView.threadViewController = self;
+    
+    [self presentViewController:cardView animated:YES completion:nil];
     
 #endif // TARGET_IPHONE_SIMULATOR
 
