@@ -28,6 +28,9 @@
 		BD2FEC6F19109B8800C44ACB /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BD2FEC6E19109B8800C44ACB /* libicucore.dylib */; };
 		BD2FEC7119109B9500C44ACB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD2FEC7019109B9500C44ACB /* CoreData.framework */; };
 		BD2FEC7A1910B6B800C44ACB /* PFUser+SilentFilm.m in Sources */ = {isa = PBXBuildFile; fileRef = BD2FEC791910B6B800C44ACB /* PFUser+SilentFilm.m */; };
+		BD54770A1916E95D00C64850 /* M3AssetRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5477091916E95D00C64850 /* M3AssetRenderer.m */; };
+		BD54770E1916FFF700C64850 /* silent-film.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BD54770D1916FFF700C64850 /* silent-film.jpg */; };
+		BD547711191716DB00C64850 /* M3Video.m in Sources */ = {isa = PBXBuildFile; fileRef = BD547710191716DB00C64850 /* M3Video.m */; };
 		BDB959FC190F67DF0092AD8F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDB959FB190F67DF0092AD8F /* Foundation.framework */; };
 		BDB959FE190F67DF0092AD8F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDB959FD190F67DF0092AD8F /* CoreGraphics.framework */; };
 		BDB95A00190F67DF0092AD8F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDB959FF190F67DF0092AD8F /* UIKit.framework */; };
@@ -97,6 +100,11 @@
 		BD2FEC7019109B9500C44ACB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		BD2FEC781910B6B800C44ACB /* PFUser+SilentFilm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PFUser+SilentFilm.h"; path = "SilentFilm/Model/PFUser+SilentFilm.h"; sourceTree = "<group>"; };
 		BD2FEC791910B6B800C44ACB /* PFUser+SilentFilm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PFUser+SilentFilm.m"; path = "SilentFilm/Model/PFUser+SilentFilm.m"; sourceTree = "<group>"; };
+		BD5477081916E95D00C64850 /* M3AssetRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3AssetRenderer.h; sourceTree = "<group>"; };
+		BD5477091916E95D00C64850 /* M3AssetRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3AssetRenderer.m; sourceTree = "<group>"; };
+		BD54770D1916FFF700C64850 /* silent-film.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "silent-film.jpg"; sourceTree = "<group>"; };
+		BD54770F191716DB00C64850 /* M3Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = M3Video.h; path = SilentFilm/Model/M3Video.h; sourceTree = "<group>"; };
+		BD547710191716DB00C64850 /* M3Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = M3Video.m; path = SilentFilm/Model/M3Video.m; sourceTree = "<group>"; };
 		BDAEC1EE190F6F0C00B08C06 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		BDB959F8190F67DF0092AD8F /* Silent Film.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Silent Film.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDB959FB190F67DF0092AD8F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -195,14 +203,11 @@
 		BD2FEC4219104E2700C44ACB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BD547712191717A700C64850 /* Synced Objects */,
 				BDC9278E19104901005F4450 /* M3LoginManager.h */,
 				BDC9278F19104901005F4450 /* M3LoginManager.m */,
-				BD2FEC4319104E4000C44ACB /* M3Thread.h */,
-				BD2FEC4419104E4000C44ACB /* M3Thread.m */,
-				BD2FEC46191056B300C44ACB /* M3Post.h */,
-				BD2FEC47191056B300C44ACB /* M3Post.m */,
-				BD2FEC781910B6B800C44ACB /* PFUser+SilentFilm.h */,
-				BD2FEC791910B6B800C44ACB /* PFUser+SilentFilm.m */,
+				BD54770F191716DB00C64850 /* M3Video.h */,
+				BD547710191716DB00C64850 /* M3Video.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -228,8 +233,24 @@
 				BD2FEC651910989400C44ACB /* AVCamPreviewView.m */,
 				BD2FEC661910989400C44ACB /* AVCamViewController.h */,
 				BD2FEC671910989400C44ACB /* AVCamViewController.m */,
+				BD5477081916E95D00C64850 /* M3AssetRenderer.h */,
+				BD5477091916E95D00C64850 /* M3AssetRenderer.m */,
+				BD54770D1916FFF700C64850 /* silent-film.jpg */,
 			);
 			name = AV;
+			sourceTree = "<group>";
+		};
+		BD547712191717A700C64850 /* Synced Objects */ = {
+			isa = PBXGroup;
+			children = (
+				BD2FEC46191056B300C44ACB /* M3Post.h */,
+				BD2FEC47191056B300C44ACB /* M3Post.m */,
+				BD2FEC4319104E4000C44ACB /* M3Thread.h */,
+				BD2FEC4419104E4000C44ACB /* M3Thread.m */,
+				BD2FEC781910B6B800C44ACB /* PFUser+SilentFilm.h */,
+				BD2FEC791910B6B800C44ACB /* PFUser+SilentFilm.m */,
+			);
+			name = "Synced Objects";
 			sourceTree = "<group>";
 		};
 		BDB959EF190F67DF0092AD8F = {
@@ -409,6 +430,7 @@
 			files = (
 				BDB95A17190F67E00092AD8F /* Images.xcassets in Resources */,
 				BDB95A3A190F69280092AD8F /* M3LoginViewController.xib in Resources */,
+				BD54770E1916FFF700C64850 /* silent-film.jpg in Resources */,
 				BDB95A06190F67E00092AD8F /* InfoPlist.strings in Resources */,
 				34A56E03191701F700F12D84 /* silent movie card portrait.jpg in Resources */,
 				BD2FEC631910987400C44ACB /* AVCamViewController.xib in Resources */,
@@ -471,12 +493,14 @@
 				34A56DFA1916F5CA00F12D84 /* M3CreateCardViewController.m in Sources */,
 				BD2FEC681910989400C44ACB /* AVCamPreviewView.m in Sources */,
 				BDB95A0C190F67E00092AD8F /* M3AppDelegate.m in Sources */,
+				BD54770A1916E95D00C64850 /* M3AssetRenderer.m in Sources */,
 				BD2FEC531910846200C44ACB /* M3SignUpViewController.m in Sources */,
 				BD2FEC691910989400C44ACB /* AVCamViewController.m in Sources */,
 				BDB95A08190F67E00092AD8F /* main.m in Sources */,
 				BDC9279019104901005F4450 /* M3LoginManager.m in Sources */,
 				BD2FEC4019104C5B00C44ACB /* M3ThreadListViewController.m in Sources */,
 				BD2FEC4519104E4000C44ACB /* M3Thread.m in Sources */,
+				BD547711191716DB00C64850 /* M3Video.m in Sources */,
 				BDB95A39190F69280092AD8F /* M3LoginViewController.m in Sources */,
 				BD2FEC7A1910B6B800C44ACB /* PFUser+SilentFilm.m in Sources */,
 				BD2FEC48191056B300C44ACB /* M3Post.m in Sources */,

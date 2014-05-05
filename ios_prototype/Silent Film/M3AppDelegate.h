@@ -12,4 +12,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+// Calling this will delete any files already here.
++ (NSURL*)fileURLForTemporaryFileNamed:(NSString*)filename;
+
 @end
