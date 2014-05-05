@@ -9,6 +9,7 @@
 #import "M3ThreadViewController.h"
 #import "M3Thread.h"
 #import "M3Post.h"
+#import "M3CreateCardViewController.h"
 
 #import "AVCamViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
@@ -51,8 +52,11 @@
 {
 #if TARGET_IPHONE_SIMULATOR
     
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Upload test video?" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-    [alertView show];
+//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Upload test video?" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+//    [alertView show];
+    M3CreateCardViewController *cardView = [[M3CreateCardViewController alloc] init];
+//    [self.navigationController pushViewController:cardView animated:YES];
+    [self presentViewController:cardView animated:YES completion:nil];
     
 #else // TARGET_IPHONE_SIMULATOR
     

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="M3CreateCardViewController">
+            <connections>
+                <outlet property="cardLabel" destination="bnR-Oo-beu" id="tpJ-O2-Cx9"/>
+                <outlet property="createCardButton" destination="iYa-c1-miM" id="JEH-j5-PhN"/>
+                <outlet property="dontCreateCardButton" destination="dXb-sL-eqc" id="uJv-Lf-WEa"/>
+                <outlet property="inputTextField" destination="rDj-P8-9Mr" id="X0L-82-u9J"/>
+                <outlet property="screenTitle" destination="jkL-ma-cuX" id="55x-d2-huU"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Title Card" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jkL-ma-cuX">
+                    <rect key="frame" x="58" y="20" width="204" height="36"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="SavoyeLetPlain" family="Savoye LET" pointSize="30"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dXb-sL-eqc">
+                    <rect key="frame" x="20" y="532" width="125" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="SavoyeLetPlain" family="Savoye LET" pointSize="25"/>
+                    <state key="normal" title="Don't Create Card">
+                        <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iYa-c1-miM">
+                    <rect key="frame" x="217" y="532" width="83" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="83" id="dVA-Ia-o6k"/>
+                        <constraint firstAttribute="height" constant="30" id="vZh-jY-bnh"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="SavoyeLetPlain" family="Savoye LET" pointSize="25"/>
+                    <state key="normal" title="Create Card">
+                        <color key="titleColor" red="0.25098040699958801" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="createCard:" destination="-1" eventType="touchUpInside" id="mku-cv-qiU"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="silent movie card portrait.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="3mA-Km-g9s">
+                    <rect key="frame" x="20" y="54" width="280" height="460"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="rDj-P8-9Mr">
+                    <rect key="frame" x="20" y="269" width="280" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="done"/>
+                    <connections>
+                        <action selector="userDoneEnteringText:" destination="-1" eventType="editingDidEndOnExit" id="CVT-iz-aSQ"/>
+                    </connections>
+                </textField>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnR-Oo-beu">
+                    <rect key="frame" x="20" y="124" width="280" height="319"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="319" id="SOr-2y-HrV"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="SavoyeLetPlain" family="Savoye LET" pointSize="30"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+            <constraints>
+                <constraint firstItem="3mA-Km-g9s" firstAttribute="leading" secondItem="dXb-sL-eqc" secondAttribute="leading" id="1D9-bh-dKv"/>
+                <constraint firstItem="jkL-ma-cuX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="58" id="2Eu-c1-Ren"/>
+                <constraint firstItem="iYa-c1-miM" firstAttribute="bottom" secondItem="dXb-sL-eqc" secondAttribute="bottom" id="8HG-6K-7y8"/>
+                <constraint firstItem="iYa-c1-miM" firstAttribute="top" secondItem="3mA-Km-g9s" secondAttribute="bottom" constant="18" id="BRi-k4-28N"/>
+                <constraint firstAttribute="trailing" secondItem="3mA-Km-g9s" secondAttribute="trailing" constant="20" symbolic="YES" id="EIr-ZU-Lvv"/>
+                <constraint firstItem="rDj-P8-9Mr" firstAttribute="trailing" secondItem="iYa-c1-miM" secondAttribute="trailing" id="IeX-Qz-7ct"/>
+                <constraint firstItem="jkL-ma-cuX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" symbolic="YES" id="JMv-Ft-I5D"/>
+                <constraint firstItem="3mA-Km-g9s" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" symbolic="YES" id="Nn3-Y8-Jew"/>
+                <constraint firstItem="bnR-Oo-beu" firstAttribute="top" secondItem="jkL-ma-cuX" secondAttribute="bottom" constant="68" id="Oca-z3-D9Z"/>
+                <constraint firstItem="3mA-Km-g9s" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="54" id="P05-eE-zOC"/>
+                <constraint firstItem="iYa-c1-miM" firstAttribute="top" secondItem="dXb-sL-eqc" secondAttribute="top" id="PMm-fO-z2A"/>
+                <constraint firstItem="3mA-Km-g9s" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="VtQ-ao-rsv"/>
+                <constraint firstItem="bnR-Oo-beu" firstAttribute="leading" secondItem="rDj-P8-9Mr" secondAttribute="leading" id="Z3A-hj-1qi"/>
+                <constraint firstItem="iYa-c1-miM" firstAttribute="leading" secondItem="dXb-sL-eqc" secondAttribute="trailing" constant="72" id="ZTX-dy-qad"/>
+                <constraint firstItem="3mA-Km-g9s" firstAttribute="centerX" secondItem="jkL-ma-cuX" secondAttribute="centerX" id="djt-Eh-D9O"/>
+                <constraint firstItem="3mA-Km-g9s" firstAttribute="trailing" secondItem="iYa-c1-miM" secondAttribute="trailing" id="gyY-qh-F2N"/>
+                <constraint firstItem="rDj-P8-9Mr" firstAttribute="leading" secondItem="dXb-sL-eqc" secondAttribute="leading" id="mvj-I7-e0b"/>
+                <constraint firstItem="rDj-P8-9Mr" firstAttribute="centerY" secondItem="3mA-Km-g9s" secondAttribute="centerY" id="nln-hG-oXW"/>
+                <constraint firstItem="bnR-Oo-beu" firstAttribute="trailing" secondItem="rDj-P8-9Mr" secondAttribute="trailing" id="wHS-LS-sdz"/>
+            </constraints>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="silent movie card portrait.jpg" width="498" height="1053"/>
+    </resources>
+</document>
