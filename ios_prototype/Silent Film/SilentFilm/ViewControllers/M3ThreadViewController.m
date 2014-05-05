@@ -37,7 +37,7 @@
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         
-        UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addVideo)];
+        UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showTitleCardScreen)];
         [self.navigationItem setRightBarButtonItem:button];
     }
     return self;
@@ -50,15 +50,22 @@
     [self.view addSubview:self.tableView];
 }
 
+- (void)showTitleCardScreen {
+    M3CreateCardViewController *cardView = [[M3CreateCardViewController alloc] init];
+    cardView.isTitleCard = true;
+    cardView.threadViewController = self;
+    [self presentViewController:cardView animated:YES completion:nil];
+}
+
 - (void)addVideo
 {
-    if (!self.titleCard) {
-        M3CreateCardViewController *cardView = [[M3CreateCardViewController alloc] init];
-        cardView.isTitleCard = true;
-        cardView.threadViewController = self;
-        [self presentViewController:cardView animated:YES completion:nil];
-        return;
-    }
+//    if (!self.titleCard) {
+//        M3CreateCardViewController *cardView = [[M3CreateCardViewController alloc] init];
+//        cardView.isTitleCard = true;
+//        cardView.threadViewController = self;
+//        [self presentViewController:cardView animated:YES completion:nil];
+//        return;
+//    }
     
 #if TARGET_IPHONE_SIMULATOR
     
