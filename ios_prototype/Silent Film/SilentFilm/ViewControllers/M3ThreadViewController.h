@@ -15,5 +15,6 @@
 - (id)initWithThread:(M3Thread*)thread;
 - (void)recordedVideoWithFileAtURL:(NSURL *)url;
 - (void)createCardViewControllerFinished:(M3CreateCardViewController*)createCardViewController;
+- (void)dismissCardViewController:(M3CreateCardViewController*)createCardViewController;
 
 @end

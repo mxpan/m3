@@ -43,14 +43,9 @@
 }
 
 - (IBAction)createCard:(UIButton *)sender {
-    [self hideExtraText: true];
+    [self hideExtraText];
     [self setCardLabelText: [self.inputTextField text]];
     
-    if (self.isTitleCard){
-
-    } else {
-        // is ending card so render video
-    }
     [self.threadViewController createCardViewControllerFinished:self];
 }
 
@@ -58,11 +53,11 @@
     [self.cardLabel setText:text];
 }
 
-- (void) hideExtraText: (BOOL) hide{
-    self.screenTitle.hidden =  hide;
-    self.dontCreateCardButton.hidden = hide;
-    self.createCardButton.hidden = hide;
-    self.inputTextField.hidden = hide;
+- (void) hideExtraText {
+    self.screenTitle.hidden =  true;
+    self.dontCreateCardButton.hidden = true;
+    self.createCardButton.hidden = true;
+    self.inputTextField.hidden = true;
 }
 
 - (UIImage *) image
@@ -86,14 +81,7 @@
 }
 
 - (IBAction)dontCreateCardPressed:(UIButton *)sender {
-    if (self.isTitleCard) {
-        AVCamViewController *avCam = [[AVCamViewController alloc] init];
-        avCam.threadViewController = self.threadViewController;
-//        [self dismissViewControllerAnimated:YES completion:nil];
-        [self presentViewController:avCam animated:YES completion:nil];
-    } else {
-         // is ending card so render video
-    }
+    [self.threadViewController dismissCardViewController:self];
 }
 
 

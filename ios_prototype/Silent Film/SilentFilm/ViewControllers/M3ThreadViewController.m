@@ -79,6 +79,10 @@
 - (void)createCardViewControllerFinished:(M3CreateCardViewController*)createCardViewController
 {
     self.titleCard = createCardViewController.image;
+    [self dismissCardViewController:createCardViewController];
+}
+
+- (void) dismissCardViewController:(M3CreateCardViewController *)createCardViewController {
     [createCardViewController dismissViewControllerAnimated:YES completion:^{
         [self addVideo];
     }];
