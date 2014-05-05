@@ -10,12 +10,13 @@
 #import "M3Thread.h"
 #import "M3Post.h"
 #import "M3CreateCardViewController.h"
+#import "M3AppDelegate.h"
 
 #import "AVCamViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <MBProgressHUD.h>
 #import <TargetConditionals.h>
-
+#import "M3Video.h"
 
 @interface M3ThreadViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
@@ -74,8 +75,6 @@
     [self presentViewController:cardView animated:YES completion:nil];
     
 #endif // TARGET_IPHONE_SIMULATOR
-
-
 }
 
 - (void)recordedVideoWithFileAtURL:(NSURL *)url
@@ -84,19 +83,26 @@
     progressHud.mode = MBProgressHUDModeAnnularDeterminate;
     progressHud.labelText = @"Uploading video...";
     
+    M3Video *video = [M3Video new];
+    video.titleCard = [UIImage imageNamed:@"silent-film.jpg"];
+    video.video = [AVAsset assetWithURL:url];
+    video.outputURL = [M3AppDelegate fileURLForTemporaryFileNamed:@"final-movie.mov"];
+    
     M3ThreadViewController *weakSelf = self;
-    [self.thread addPostWithVideoAtURL:url withBlock:^(PFObject *object, NSError *error) {
+    [self.thread addPostWithVideo:video withBlock:^(PFObject *object, NSError *error) {
         [progressHud hide:YES];
-        [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
         if ([object isKindOfClass:[M3Post class]]) {
             M3Post *post = (M3Post*)object;
             [weakSelf.thread.posts insertObject:post atIndex:0];
             [weakSelf.tableView reloadData];
-            [weakSelf.thread refreshInBackgroundWithBlock:nil];
+            [weakSelf.thread refreshInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                [weakSelf.tableView reloadData];
+            }];
         }
     } progressBlock:^(int percentDone) {
         progressHud.progress = percentDone / 100.0f;
     }];
+
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex

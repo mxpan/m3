@@ -8,6 +8,8 @@
 
 #import "M3Thread.h"
 #import "M3Post.h"
+#import "M3Video.h"
+
 #import <Parse/PFObject+Subclass.h>
 #import <AVFoundation/AVFoundation.h>
 #import "PFUser+SilentFilm.h"
@@ -40,11 +42,10 @@
     }];
 }
 
-- (void)addPostWithVideoAtURL:(NSURL*)url withBlock:(PFObjectResultBlock)block progressBlock:(PFProgressBlock)progressBlock;
+- (void)addPostWithVideo:(M3Video*)video withBlock:(PFObjectResultBlock)block progressBlock:(PFProgressBlock)progressBlock
 {
-    NSURL *outputUrl = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:[@"movie-medium" stringByAppendingPathExtension:@"mov"]]];
-    [self convertVideoToLowQuailtyWithInputURL:url outputURL:outputUrl handler:^(AVAssetExportSession *session) {
-        NSData *data = [NSData dataWithContentsOfURL:outputUrl];
+    [video exportWithCallback:^{
+        NSData *data = [NSData dataWithContentsOfURL:video.outputURL];
         PFFile *videoFile = [PFFile fileWithName:@"video.mp4" data:data];
         [videoFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             M3Post *post = [M3Post new];
@@ -62,20 +63,6 @@
                 }];
             }];
         } progressBlock:progressBlock];
-    }];
-}
-
-- (void)convertVideoToLowQuailtyWithInputURL:(NSURL*)inputURL
-                                   outputURL:(NSURL*)outputURL
-                                     handler:(void (^)(AVAssetExportSession*))handler
-{
-    [[NSFileManager defaultManager] removeItemAtURL:outputURL error:nil];
-    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:inputURL options:nil];
-    AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:asset presetName:AVAssetExportPresetMediumQuality];
-    exportSession.outputURL = outputURL;
-    exportSession.outputFileType = AVFileTypeQuickTimeMovie;
-    [exportSession exportAsynchronouslyWithCompletionHandler:^(void){
-        handler(exportSession);
     }];
 }
 

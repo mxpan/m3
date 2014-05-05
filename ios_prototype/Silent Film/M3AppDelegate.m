@@ -12,6 +12,8 @@
 #import "M3Thread.h"
 #import "M3Post.h"
 
+#import "M3AssetRenderer.h"
+
 @implementation M3AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -35,8 +37,16 @@
      UIRemoteNotificationTypeBadge |
      UIRemoteNotificationTypeAlert |
      UIRemoteNotificationTypeSound];
-        
+
     return YES;
+}
+
++ (NSURL*)fileURLForTemporaryFileNamed:(NSString*)filename
+{
+    NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:filename];
+    NSURL *pathUrl = [NSURL fileURLWithPath:path];
+    [[NSFileManager defaultManager] removeItemAtURL:pathUrl error:nil];
+    return pathUrl;
 }
 
 - (BOOL)application:(UIApplication *)application

@@ -8,13 +8,15 @@
 
 #import <Parse/Parse.h>
 
+@class M3Video;
+
 @interface M3Thread : PFObject <PFSubclassing>
 
 @property NSArray *users;
 @property NSMutableArray *posts;
 
 + (void)fetchThreadsForCurrentUserWithCallback:(void (^)(NSArray*))callback;
-- (void)addPostWithVideoAtURL:(NSURL*)url withBlock:(PFObjectResultBlock)block progressBlock:(PFProgressBlock)progressBlock;
+- (void)addPostWithVideo:(M3Video*)video withBlock:(PFObjectResultBlock)block progressBlock:(PFProgressBlock)progressBlock;
 - (void)fetchPostsWithCallback:(void (^)())callback;
 - (PFUser*)otherUser;
 
