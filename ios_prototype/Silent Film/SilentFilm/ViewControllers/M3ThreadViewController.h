@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 M3. All rights reserved.
 //
 
-@class M3Thread;
+@class M3Thread, M3CreateCardViewController;
 
 @interface M3ThreadViewController : UIViewController
 
@@ -14,5 +14,6 @@
 
 - (id)initWithThread:(M3Thread*)thread;
 - (void)recordedVideoWithFileAtURL:(NSURL *)url;
+- (void)createCardViewControllerFinished:(M3CreateCardViewController*)createCardViewController;
 
 @end

@@ -13,5 +13,6 @@
 
 @property BOOL isTitleCard;
 @property (weak) M3ThreadViewController *threadViewController;
+@property (readonly) UIImage *image;
 
 @end

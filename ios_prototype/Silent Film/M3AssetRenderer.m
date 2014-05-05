@@ -13,9 +13,8 @@
 
 + (void)getAssetForTitleCard:(UIImage*)titleCard withCallback:(void (^)(AVAsset *asset))callback
 {
-    UIImage *image = [UIImage imageNamed:@"silent-film.jpg"];
     NSURL *outputUrl = [M3AppDelegate fileURLForTemporaryFileNamed:@"titlecard.mov"];
-    [self writeImage:image toMovieAtPath:outputUrl withSize:CGSizeMake(640, 640) callback:^{
+    [self writeImage:titleCard toMovieAtPath:outputUrl withSize:titleCard.size callback:^{
         if (callback) {
             AVAsset *asset = [AVAsset assetWithURL:outputUrl];
             callback(asset);

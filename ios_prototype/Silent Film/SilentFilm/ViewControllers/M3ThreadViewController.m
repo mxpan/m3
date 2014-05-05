@@ -21,6 +21,7 @@
 @interface M3ThreadViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
 @property UITableView *tableView;
+@property UIImage *titleCard;
 
 @end
 
@@ -51,30 +52,36 @@
 
 - (void)addVideo
 {
+    if (!self.titleCard) {
+        M3CreateCardViewController *cardView = [[M3CreateCardViewController alloc] init];
+        cardView.isTitleCard = true;
+        cardView.threadViewController = self;
+        [self presentViewController:cardView animated:YES completion:nil];
+        return;
+    }
+    
 #if TARGET_IPHONE_SIMULATOR
     
-//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Upload test video?" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-//    [alertView show];
-    M3CreateCardViewController *cardView = [[M3CreateCardViewController alloc] init];
-//    [self.navigationController pushViewController:cardView animated:YES];
-    cardView.isTitleCard = true;
-    cardView.threadViewController = self;
-    [self presentViewController:cardView animated:YES completion:nil];
-
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Upload test video?" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    [alertView show];
     
 #else // TARGET_IPHONE_SIMULATOR
     
-//    AVCamViewController *avCam = [[AVCamViewController alloc] init];
-//    avCam.threadViewController = self;
-//    [self.navigationController pushViewController:avCam animated:YES];
-    
-    M3CreateCardViewController *cardView = [[M3CreateCardViewController alloc] init];
-    cardView.isTitleCard = true;
-    cardView.threadViewController = self;
-    
-    [self presentViewController:cardView animated:YES completion:nil];
+    AVCamViewController *avCam = [[AVCamViewController alloc] init];
+    avCam.threadViewController = self;
+    [self presentViewController:avCam animated:YES completion:^{
+        
+    }];
     
 #endif // TARGET_IPHONE_SIMULATOR
+}
+
+- (void)createCardViewControllerFinished:(M3CreateCardViewController*)createCardViewController
+{
+    self.titleCard = createCardViewController.image;
+    [createCardViewController dismissViewControllerAnimated:YES completion:^{
+        [self addVideo];
+    }];
 }
 
 - (void)recordedVideoWithFileAtURL:(NSURL *)url
@@ -84,7 +91,7 @@
     progressHud.labelText = @"Uploading video...";
     
     M3Video *video = [M3Video new];
-    video.titleCard = [UIImage imageNamed:@"silent-film.jpg"];
+    video.titleCard =  self.titleCard;
     video.video = [AVAsset assetWithURL:url];
     video.outputURL = [M3AppDelegate fileURLForTemporaryFileNamed:@"final-movie.mov"];
     

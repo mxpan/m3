@@ -45,20 +45,13 @@
 - (IBAction)createCard:(UIButton *)sender {
     [self hideExtraText: true];
     [self setCardLabelText: [self.inputTextField text]];
-    UIImage *image = [self createImage];
-//    [self saveImage:image];
     
     if (self.isTitleCard){
-        // need to record video
-        AVCamViewController *avCam = [[AVCamViewController alloc] init];
-        avCam.threadViewController = self.threadViewController;
-//        [self dismissViewControllerAnimated:YES completion:nil];
-        avCam.titleCard = image;
-//        [self dismissViewControllerAnimated:YES completion:nil];
-        [self presentViewController:avCam animated:YES completion:nil];
+
     } else {
         // is ending card so render video
     }
+    [self.threadViewController createCardViewControllerFinished:self];
 }
 
 - (void) setCardLabelText: (NSString *)text {
@@ -72,7 +65,8 @@
     self.inputTextField.hidden = hide;
 }
 
-- (UIImage *) createImage {
+- (UIImage *) image
+{
     UIGraphicsBeginImageContext(self.view.bounds.size);
     
     [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
