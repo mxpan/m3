@@ -53,4 +53,6 @@
 @property (weak) M3ThreadViewController *threadViewController;
 @property UIImage * titleCard;
 
+@property NSURL *outputFileURL;
+
 @end

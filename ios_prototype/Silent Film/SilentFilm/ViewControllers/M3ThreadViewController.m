@@ -22,6 +22,8 @@
 
 @property UITableView *tableView;
 @property UIImage *titleCard;
+@property UIImage *endCard;
+@property NSURL *outputFileURL;
 
 @end
 
@@ -76,23 +78,40 @@
     
     AVCamViewController *avCam = [[AVCamViewController alloc] init];
     avCam.threadViewController = self;
-    [self presentViewController:avCam animated:YES completion:^{
-        
-    }];
+    [self presentViewController:avCam animated:YES completion:nil];
     
 #endif // TARGET_IPHONE_SIMULATOR
 }
 
 - (void)createCardViewControllerFinished:(M3CreateCardViewController*)createCardViewController
 {
-    self.titleCard = createCardViewController.image;
+    if (createCardViewController.isTitleCard) self.titleCard = createCardViewController.image;
+    else self.endCard = createCardViewController.image;
+    
     [self dismissCardViewController:createCardViewController];
 }
 
 - (void) dismissCardViewController:(M3CreateCardViewController *)createCardViewController {
-    [createCardViewController dismissViewControllerAnimated:YES completion:^{
-        [self addVideo];
+    if (createCardViewController.isTitleCard){
+        [createCardViewController dismissViewControllerAnimated:YES completion:^{
+            [self addVideo];
+        }];
+    } else {
+        [createCardViewController dismissViewControllerAnimated:YES completion:^{
+            [self recordedVideoWithFileAtURL:self.outputFileURL];
+        }];
+    }
+}
+
+- (void)dismissAvCam: (AVCamViewController*)avCamVc {
+    self.outputFileURL = avCamVc.outputFileURL;
+    [avCamVc dismissViewControllerAnimated:YES completion:^{
+        M3CreateCardViewController *endCardVC = [[M3CreateCardViewController alloc] init];
+        endCardVC.threadViewController = self;
+        endCardVC.isTitleCard = false;
+        [self presentViewController:endCardVC animated:YES completion:nil];
     }];
+    [self recordedVideoWithFileAtURL:self.outputFileURL];
 }
 
 - (void)recordedVideoWithFileAtURL:(NSURL *)url
@@ -103,6 +122,7 @@
     
     M3Video *video = [M3Video new];
     video.titleCard =  self.titleCard;
+    video.endCard = self.endCard;
     video.video = [AVAsset assetWithURL:url];
     video.outputURL = [M3AppDelegate fileURLForTemporaryFileNamed:@"final-movie.mov"];
     

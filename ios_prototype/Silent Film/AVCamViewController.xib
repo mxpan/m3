@@ -45,7 +45,7 @@
                                 <constraint firstAttribute="width" constant="72" id="ito-Ps-RWo"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <state key="normal" title="Camera">
+                            <state key="normal" title="Flip">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>

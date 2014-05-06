@@ -426,9 +426,11 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 	[[UIApplication sharedApplication] endBackgroundTask:[self backgroundRecordingID]];
     [self setBackgroundRecordingID:UIBackgroundTaskInvalid];
 
-    [self.threadViewController recordedVideoWithFileAtURL:outputFileURL];
+    self.outputFileURL = outputFileURL;
+//    [self.threadViewController recordedVideoWithFileAtURL:outputFileURL];
 //    [self.navigationController popViewControllerAnimated:YES];
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.threadViewController dismissAvCam:self];
 }
 
 #pragma mark Device Configuration
