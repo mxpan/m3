@@ -85,8 +85,11 @@
 
 - (void)createCardViewControllerFinished:(M3CreateCardViewController*)createCardViewController
 {
-    if (createCardViewController.isTitleCard) self.titleCard = createCardViewController.image;
-    else self.endCard = createCardViewController.image;
+    if (createCardViewController.isTitleCard) {
+        self.titleCard = createCardViewController.image;
+    } else {
+        self.endCard = createCardViewController.image;
+    }
     
     [self dismissCardViewController:createCardViewController];
 }
@@ -111,7 +114,6 @@
         endCardVC.isTitleCard = false;
         [self presentViewController:endCardVC animated:YES completion:nil];
     }];
-    [self recordedVideoWithFileAtURL:self.outputFileURL];
 }
 
 - (void)recordedVideoWithFileAtURL:(NSURL *)url
