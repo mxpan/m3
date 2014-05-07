@@ -148,8 +148,12 @@
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1) {
-        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"test7" ofType:@"mp4"];
-        [self recordedVideoWithFileAtURL:[NSURL fileURLWithPath:filePath]];
+        NSURL *fileURL = [[NSBundle mainBundle] URLForResource:@"test7" withExtension:@"mp4"];
+        AVCamViewController *avCam = [AVCamViewController new];
+        avCam.outputFileURL = fileURL;
+        [self presentViewController:avCam animated:NO completion:^{
+            [self dismissAvCam:avCam];
+        }];
     }
 }
 
