@@ -21,13 +21,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sbe-CC-wBP">
-                            <rect key="frame" x="32" y="516" width="72" height="30"/>
+                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sbe-CC-wBP">
+                            <rect key="frame" x="20" y="516" width="72" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="30" id="aIA-Pe-WPi"/>
-                                <constraint firstAttribute="width" constant="72" id="e5X-xU-cv5"/>
+                                <constraint firstAttribute="width" constant="72" id="RQu-cL-d5T"/>
+                                <constraint firstAttribute="height" constant="30" id="jMI-RH-q2I"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                             <state key="normal" title="Record">
@@ -37,13 +37,10 @@
                                 <action selector="toggleMovieRecording:" destination="-1" eventType="touchUpInside" id="MBq-gw-CTx"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kW3-tI-fWC">
-                            <rect key="frame" x="167" y="513" width="111" height="36"/>
+                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kW3-tI-fWC">
+                            <rect key="frame" x="168" y="513" width="132" height="36"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="72" id="ito-Ps-RWo"/>
-                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                             <state key="normal" title="Flip Camera">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -56,7 +53,11 @@
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <gestureRecognizers/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="sbe-CC-wBP" secondAttribute="bottom" constant="22" id="kh1-px-WPI"/>
+                        <constraint firstItem="kW3-tI-fWC" firstAttribute="baseline" secondItem="sbe-CC-wBP" secondAttribute="baseline" id="63h-Cd-avM"/>
+                        <constraint firstAttribute="bottom" secondItem="sbe-CC-wBP" secondAttribute="bottom" constant="22" id="8nh-fs-wFH"/>
+                        <constraint firstAttribute="trailing" secondItem="kW3-tI-fWC" secondAttribute="trailing" constant="20" symbolic="YES" id="BKe-n5-1d8"/>
+                        <constraint firstItem="kW3-tI-fWC" firstAttribute="leading" secondItem="sbe-CC-wBP" secondAttribute="trailing" constant="76" id="P41-qg-YSw"/>
+                        <constraint firstItem="sbe-CC-wBP" firstAttribute="leading" secondItem="ZWZ-Pv-6G0" secondAttribute="leading" constant="20" symbolic="YES" id="QBx-Kf-0cH"/>
                     </constraints>
                     <connections>
                         <outletCollection property="gestureRecognizers" destination="GUr-td-ZW5" appends="YES" id="eyh-5a-ohd"/>
