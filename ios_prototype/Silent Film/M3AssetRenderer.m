@@ -11,9 +11,13 @@
 
 @implementation M3AssetRenderer
 
-+ (void)getAssetForTitleCard:(UIImage*)titleCard withCallback:(void (^)(AVAsset *asset))callback
++ (void)getAssetForTitleCard:(UIImage*)titleCard withIndex:(NSInteger)index withCallback:(void (^)(AVAsset *asset))callback
 {
-    NSURL *outputUrl = [M3AppDelegate fileURLForTemporaryFileNamed:@"titlecard.mov"];
+    if (!titleCard) {
+        callback(nil);
+        return;
+    }
+    NSURL *outputUrl = [M3AppDelegate fileURLForTemporaryFileNamed:[NSString stringWithFormat:@"titlecard-%d.mov", index]];
     [self writeImage:titleCard toMovieAtPath:outputUrl withSize:titleCard.size callback:^{
         if (callback) {
             AVAsset *asset = [AVAsset assetWithURL:outputUrl];
