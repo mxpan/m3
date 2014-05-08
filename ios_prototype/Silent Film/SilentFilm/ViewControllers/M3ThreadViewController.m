@@ -45,6 +45,16 @@
     return self;
 }
 
+- (void)refresh
+{
+    [self.thread fetchPostsWithCallback:^(NSArray *newPosts) {
+        if (newPosts.count) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"New Message!" message:nil delegate:nil cancelButtonTitle:@"Okay!" otherButtonTitles: nil];
+            [alertView show];
+        }
+    }];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

@@ -66,7 +66,7 @@
     }];
 }
 
-- (void)fetchPostsWithCallback:(void (^)())callback
+- (void)fetchPostsWithCallback:(void (^)(NSArray *newPosts))callback
 {
     PFQuery *query = [M3Post query];
     [query whereKey:@"thread" equalTo:self];
@@ -75,9 +75,30 @@
     query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        self.posts = [NSMutableArray arrayWithArray:objects]    ;
+        NSMutableArray *newPosts = [NSMutableArray array];
+        
+        if (!self.posts) {
+            self.posts = [NSMutableArray arrayWithArray:objects];
+        } else {
+            for (M3Post *post in objects) {
+                BOOL isNew = YES;
+                for (M3Post *existingPost in self.posts) {
+                    if ([post.objectId isEqualToString:existingPost.objectId]) {
+                        isNew = NO;
+                        break;
+                    }
+                }
+                
+                if (isNew) {
+                    [self.posts addObject:post];
+                    [newPosts addObject:post];
+                }
+            }
+        }
+
+        
         if (callback) {
-            callback();
+            callback(newPosts);
         }
     }];
 }

@@ -17,7 +17,7 @@
 
 + (void)fetchThreadsForCurrentUserWithCallback:(void (^)(NSArray*))callback;
 - (void)addPostWithVideo:(M3Video*)video withBlock:(PFObjectResultBlock)block progressBlock:(PFProgressBlock)progressBlock;
-- (void)fetchPostsWithCallback:(void (^)())callback;
+- (void)fetchPostsWithCallback:(void (^)(NSArray *newPosts))callback;
 - (PFUser*)otherUser;
 
 @end
