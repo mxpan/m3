@@ -1,5 +1,7 @@
 PODS:
-  - Facebook-iOS-SDK (3.13.1)
+  - Bolts (1.1.0)
+  - Facebook-iOS-SDK (3.14.0):
+    - Bolts
   - MBProgressHUD (0.8)
   - Parse (1.2.19):
     - Facebook-iOS-SDK (~> 3.11)
@@ -14,7 +16,8 @@ DEPENDENCIES:
   - PonyDebugger
 
 SPEC CHECKSUMS:
-  Facebook-iOS-SDK: 47ae9e54684c84f93d75d4e6ab47cd031abdf406
+  Bolts: dc620a31cf67c29bce3e3d14a07a12e797a1a154
+  Facebook-iOS-SDK: 63e19ff8d275d63b765819f492a4e71e445f9822
   MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
   Parse: 3739f0b211c49115bad96d6b0969b804d4da2f24
   PonyDebugger: d31607145d785b2315cd6f6a4ebaa378eb0c1340
