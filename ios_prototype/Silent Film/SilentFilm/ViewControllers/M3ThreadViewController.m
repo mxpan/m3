@@ -20,7 +20,8 @@
 
 @interface M3ThreadViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
-@property UITableView *tableView;
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property UIImage *titleCard;
 @property UIImage *endCard;
 @property NSURL *outputFileURL;
@@ -35,9 +36,9 @@
     if (self) {
         self.thread = thread;
         
-        self.tableView = [UITableView new];
-        self.tableView.delegate = self;
-        self.tableView.dataSource = self;
+//        self.tableView = [UITableView new];
+//        self.tableView.delegate = self;
+//        self.tableView.dataSource = self;
         
         UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showTitleCardScreen)];
         [self.navigationItem setRightBarButtonItem:button];
@@ -58,8 +59,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableView.frame = self.view.frame;
-    [self.view addSubview:self.tableView];
+//    self.tableView.frame = self.view.frame;
+//    [self.view addSubview:self.tableView];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
 }
 
 - (void)showTitleCardScreen {
@@ -186,9 +189,15 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
     
     
-    M3Post *post = [self.thread.posts objectAtIndex:indexPath.row];
+//    M3Post *post = [self.thread.posts objectAtIndex:indexPath.row];
+    M3Post *post = [self.thread.posts objectAtIndex:((self.thread.posts.count-1)-indexPath.row)];
     cell.textLabel.text = [NSString stringWithFormat:@"Video by %@", [[post user] objectForKey:@"nickname"]];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", post.createdAt];
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"MMM dd, yyyy hh:mm a"];
+    NSString *dateString = [format stringFromDate:post.createdAt];
+    
+//    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", post.createdAt];
+    cell.detailTextLabel.text = dateString;
     
     return cell;
 }
