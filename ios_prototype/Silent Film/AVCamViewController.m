@@ -533,4 +533,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 	}];
 }
 
+- (IBAction)cancelVideo:(UIButton *)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end

@@ -84,5 +84,8 @@
     [self.threadViewController dismissCardViewController:self];
 }
 
+- (IBAction)cancelVideo:(UIButton *)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end
