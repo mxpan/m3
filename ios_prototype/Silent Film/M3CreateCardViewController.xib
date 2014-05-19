@@ -26,7 +26,7 @@
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dXb-sL-eqc">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dXb-sL-eqc">
                     <rect key="frame" x="20" y="532" width="125" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="SavoyeLetPlain" family="Savoye LET" pointSize="25"/>
@@ -39,11 +39,10 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iYa-c1-miM">
-                    <rect key="frame" x="119" y="532" width="83" height="30"/>
+                    <rect key="frame" x="217" y="532" width="83" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="83" id="dVA-Ia-o6k"/>
-                        <constraint firstAttribute="height" constant="30" id="vZh-jY-bnh"/>
+                        <constraint firstAttribute="width" constant="83" id="xoK-E8-ajp"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="SavoyeLetPlain" family="Savoye LET" pointSize="25"/>
                     <state key="normal" title="Create Card">
@@ -82,23 +81,24 @@
             <constraints>
                 <constraint firstItem="3mA-Km-g9s" firstAttribute="leading" secondItem="dXb-sL-eqc" secondAttribute="leading" id="1D9-bh-dKv"/>
                 <constraint firstItem="jkL-ma-cuX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="58" id="2Eu-c1-Ren"/>
-                <constraint firstItem="iYa-c1-miM" firstAttribute="bottom" secondItem="dXb-sL-eqc" secondAttribute="bottom" id="8HG-6K-7y8"/>
-                <constraint firstItem="iYa-c1-miM" firstAttribute="top" secondItem="3mA-Km-g9s" secondAttribute="bottom" constant="18" id="BRi-k4-28N"/>
                 <constraint firstAttribute="trailing" secondItem="3mA-Km-g9s" secondAttribute="trailing" constant="20" symbolic="YES" id="EIr-ZU-Lvv"/>
-                <constraint firstItem="rDj-P8-9Mr" firstAttribute="trailing" secondItem="iYa-c1-miM" secondAttribute="trailing" constant="98" id="IeX-Qz-7ct"/>
                 <constraint firstItem="jkL-ma-cuX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" symbolic="YES" id="JMv-Ft-I5D"/>
+                <constraint firstItem="iYa-c1-miM" firstAttribute="top" secondItem="3mA-Km-g9s" secondAttribute="bottom" constant="18" id="MWw-Nv-PkR"/>
                 <constraint firstItem="3mA-Km-g9s" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" symbolic="YES" id="Nn3-Y8-Jew"/>
                 <constraint firstItem="bnR-Oo-beu" firstAttribute="top" secondItem="jkL-ma-cuX" secondAttribute="bottom" constant="68" id="Oca-z3-D9Z"/>
                 <constraint firstItem="3mA-Km-g9s" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="54" id="P05-eE-zOC"/>
-                <constraint firstItem="iYa-c1-miM" firstAttribute="top" secondItem="dXb-sL-eqc" secondAttribute="top" id="PMm-fO-z2A"/>
+                <constraint firstItem="iYa-c1-miM" firstAttribute="leading" secondItem="dXb-sL-eqc" secondAttribute="trailing" constant="72" id="QVW-4w-yJO"/>
+                <constraint firstItem="iYa-c1-miM" firstAttribute="bottom" secondItem="dXb-sL-eqc" secondAttribute="bottom" id="VeC-F6-HCx"/>
                 <constraint firstItem="3mA-Km-g9s" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="VtQ-ao-rsv"/>
+                <constraint firstItem="iYa-c1-miM" firstAttribute="trailing" secondItem="rDj-P8-9Mr" secondAttribute="trailing" id="YWZ-sz-rUm"/>
                 <constraint firstItem="bnR-Oo-beu" firstAttribute="leading" secondItem="rDj-P8-9Mr" secondAttribute="leading" id="Z3A-hj-1qi"/>
-                <constraint firstItem="iYa-c1-miM" firstAttribute="leading" secondItem="dXb-sL-eqc" secondAttribute="trailing" constant="-26" id="ZTX-dy-qad"/>
                 <constraint firstItem="3mA-Km-g9s" firstAttribute="centerX" secondItem="jkL-ma-cuX" secondAttribute="centerX" id="djt-Eh-D9O"/>
-                <constraint firstItem="3mA-Km-g9s" firstAttribute="trailing" secondItem="iYa-c1-miM" secondAttribute="trailing" constant="98" id="gyY-qh-F2N"/>
+                <constraint firstItem="iYa-c1-miM" firstAttribute="top" secondItem="dXb-sL-eqc" secondAttribute="top" id="mAG-Zm-dtN"/>
                 <constraint firstItem="rDj-P8-9Mr" firstAttribute="leading" secondItem="dXb-sL-eqc" secondAttribute="leading" id="mvj-I7-e0b"/>
                 <constraint firstItem="rDj-P8-9Mr" firstAttribute="centerY" secondItem="3mA-Km-g9s" secondAttribute="centerY" id="nln-hG-oXW"/>
+                <constraint firstAttribute="bottom" secondItem="iYa-c1-miM" secondAttribute="bottom" constant="6" id="rpF-zy-zwZ"/>
                 <constraint firstItem="bnR-Oo-beu" firstAttribute="trailing" secondItem="rDj-P8-9Mr" secondAttribute="trailing" id="wHS-LS-sdz"/>
+                <constraint firstItem="iYa-c1-miM" firstAttribute="trailing" secondItem="3mA-Km-g9s" secondAttribute="trailing" id="z5g-48-NNx"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

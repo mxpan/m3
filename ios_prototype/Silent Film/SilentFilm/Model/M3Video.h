@@ -11,7 +11,6 @@
 @interface M3Video : NSObject
 
 @property UIImage *titleCard;
-@property UIImage *endCard;
 @property AVAsset *video;
 @property NSURL *outputURL;
 

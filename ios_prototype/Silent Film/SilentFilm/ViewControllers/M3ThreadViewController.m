@@ -25,6 +25,7 @@
 @property UIImage *titleCard;
 @property UIImage *endCard;
 @property NSURL *outputFileURL;
+@property UIRefreshControl *refreshControl;
 
 @end
 
@@ -35,12 +36,7 @@
     self = [super init];
     if (self) {
         self.thread = thread;
-        
-//        self.tableView = [UITableView new];
-//        self.tableView.delegate = self;
-//        self.tableView.dataSource = self;
-        
-        UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showTitleCardScreen)];
+        UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Add Video" style:UIBarButtonItemStylePlain target:self action:@selector(showTitleCardScreen)];
         [self.navigationItem setRightBarButtonItem:button];
     }
     return self;
@@ -48,6 +44,7 @@
 
 - (void)refresh
 {
+    
     [self.thread fetchPostsWithCallback:^(NSArray *newPosts) {
         if (newPosts.count) {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"New Message!" message:nil delegate:nil cancelButtonTitle:@"Okay!" otherButtonTitles: nil];
@@ -59,8 +56,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    self.tableView.frame = self.view.frame;
-//    [self.view addSubview:self.tableView];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 }
@@ -74,13 +69,6 @@
 
 - (void)addVideo
 {
-//    if (!self.titleCard) {
-//        M3CreateCardViewController *cardView = [[M3CreateCardViewController alloc] init];
-//        cardView.isTitleCard = true;
-//        cardView.threadViewController = self;
-//        [self presentViewController:cardView animated:YES completion:nil];
-//        return;
-//    }
     
 #if TARGET_IPHONE_SIMULATOR
     
@@ -122,10 +110,7 @@
 - (void)dismissAvCam: (AVCamViewController*)avCamVc {
     self.outputFileURL = avCamVc.outputFileURL;
     [avCamVc dismissViewControllerAnimated:YES completion:^{
-        M3CreateCardViewController *endCardVC = [[M3CreateCardViewController alloc] init];
-        endCardVC.threadViewController = self;
-        endCardVC.isTitleCard = false;
-        [self presentViewController:endCardVC animated:YES completion:nil];
+        [self recordedVideoWithFileAtURL:self.outputFileURL];
     }];
 }
 
@@ -137,7 +122,6 @@
     
     M3Video *video = [M3Video new];
     video.titleCard =  self.titleCard;
-    video.endCard = self.endCard;
     video.video = [AVAsset assetWithURL:url];
     video.outputURL = [M3AppDelegate fileURLForTemporaryFileNamed:@"final-movie.mov"];
     
@@ -146,7 +130,7 @@
         [progressHud hide:YES];
         if ([object isKindOfClass:[M3Post class]]) {
             M3Post *post = (M3Post*)object;
-            [weakSelf.thread.posts insertObject:post atIndex:0];
+            [weakSelf.thread.posts insertObject:post atIndex:weakSelf.thread.posts.count];
             [weakSelf.tableView reloadData];
             [weakSelf.thread refreshInBackgroundWithBlock:^(PFObject *object, NSError *error) {
                 [weakSelf.tableView reloadData];
@@ -187,16 +171,13 @@
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
-    
-    
-//    M3Post *post = [self.thread.posts objectAtIndex:indexPath.row];
-    M3Post *post = [self.thread.posts objectAtIndex:((self.thread.posts.count-1)-indexPath.row)];
+        
+    M3Post *post = [self.thread.posts objectAtIndex:indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"Video by %@", [[post user] objectForKey:@"nickname"]];
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"MMM dd, yyyy hh:mm a"];
     NSString *dateString = [format stringFromDate:post.createdAt];
     
-//    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", post.createdAt];
     cell.detailTextLabel.text = dateString;
     
     return cell;
@@ -210,7 +191,13 @@
     M3Post *post = [self.thread.posts objectAtIndex:indexPath.row];
     NSURL *videoUrl = [NSURL URLWithString:post.video.url];
     MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:videoUrl];
-    [self.navigationController pushViewController:moviePlayer animated:YES];
+    
+//    [[NSNotificationCenter defaultCenter] removeObserver:moviePlayer
+//                                                    name: MPMoviePlayerPlaybackDidFinishNotification
+//                                                  object:moviePlayer.moviePlayer];
+//
+    
+    [self presentMoviePlayerViewControllerAnimated:moviePlayer];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
