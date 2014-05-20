@@ -9,6 +9,7 @@
 #import <Parse/Parse.h>
 
 @class M3Video;
+@class M3CompiledVideo;
 
 @interface M3Thread : PFObject <PFSubclassing>
 
@@ -19,5 +20,7 @@
 - (void)addPostWithVideo:(M3Video*)video withBlock:(PFObjectResultBlock)block progressBlock:(PFProgressBlock)progressBlock;
 - (void)fetchPostsWithCallback:(void (^)(NSArray *newPosts))callback;
 - (PFUser*)otherUser;
+- (void)compileFullVideo:(M3CompiledVideo*)videoCompiler withBlock:(PFObjectResultBlock)block progressBlock:(PFProgressBlock)progressBlock;
+
 
 @end

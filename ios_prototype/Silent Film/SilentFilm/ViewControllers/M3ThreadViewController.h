@@ -18,4 +18,6 @@
 - (void)dismissCardViewController:(M3CreateCardViewController*)createCardViewController;
 - (void)dismissAvCam: (AVCamViewController*)avCamVc;
 
+@property UIImage *titleCard;
+
 @end

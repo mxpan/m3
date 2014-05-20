@@ -17,12 +17,13 @@
 #import <MBProgressHUD.h>
 #import <TargetConditionals.h>
 #import "M3Video.h"
+#import "M3CompiledVideo.h"
 
 @interface M3ThreadViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property UIImage *titleCard;
+
 @property UIImage *endCard;
 @property NSURL *outputFileURL;
 @property UIRefreshControl *refreshControl;
@@ -127,6 +128,31 @@
     
     M3ThreadViewController *weakSelf = self;
     [self.thread addPostWithVideo:video withBlock:^(PFObject *object, NSError *error) {
+        [progressHud hide:YES];
+        if ([object isKindOfClass:[M3Post class]]) {
+            M3Post *post = (M3Post*)object;
+            [weakSelf.thread.posts insertObject:post atIndex:weakSelf.thread.posts.count];
+            [weakSelf.tableView reloadData];
+            [weakSelf.thread refreshInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                [weakSelf.tableView reloadData];
+            }];
+        }
+    } progressBlock:^(int percentDone) {
+        progressHud.progress = percentDone / 100.0f;
+    }];
+
+}
+
+- (IBAction)createFullMovie:(UIBarButtonItem *)sender {
+    MBProgressHUD *progressHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    progressHud.mode = MBProgressHUDModeAnnularDeterminate;
+    progressHud.labelText = @"Uploading video...";
+    M3CompiledVideo *videoCompiler = [[M3CompiledVideo alloc] init];
+    videoCompiler.posts = self.thread.posts;
+    videoCompiler.outputURL = [M3AppDelegate fileURLForTemporaryFileNamed:@"final-movie.mov"];
+    
+    M3ThreadViewController *weakSelf = self;
+    [self.thread compileFullVideo:videoCompiler withBlock:^(PFObject *object, NSError *error) {
         [progressHud hide:YES];
         if ([object isKindOfClass:[M3Post class]]) {
             M3Post *post = (M3Post*)object;

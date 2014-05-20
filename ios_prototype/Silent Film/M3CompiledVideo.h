@@ -10,9 +10,10 @@
 
 @interface M3CompiledVideo : NSObject
 
-@property NSMutableArray *videos;
+@property NSMutableArray *posts;
 @property UIImage *endCard;
+@property NSURL *outputURL;
 
-- (void)exportWithCallback:(void (^)())callback;
+- (void)renderFullVideo:(void (^)())callback;
 
 @end

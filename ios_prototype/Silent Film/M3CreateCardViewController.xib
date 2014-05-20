@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="M3CreateCardViewController">
             <connections>
+                <outlet property="cancelButton" destination="tpo-fm-y3k" id="6O9-aM-9Rm"/>
                 <outlet property="cardLabel" destination="bnR-Oo-beu" id="tpJ-O2-Cx9"/>
                 <outlet property="createCardButton" destination="iYa-c1-miM" id="JEH-j5-PhN"/>
                 <outlet property="dontCreateCardButton" destination="dXb-sL-eqc" id="uJv-Lf-WEa"/>

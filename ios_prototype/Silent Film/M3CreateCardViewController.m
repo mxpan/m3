@@ -17,6 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *dontCreateCardButton;
 @property (weak, nonatomic) IBOutlet UIButton *createCardButton;
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 
 @end
 
@@ -58,6 +59,7 @@
     self.dontCreateCardButton.hidden = true;
     self.createCardButton.hidden = true;
     self.inputTextField.hidden = true;
+    self.cancelButton.hidden = true;
 }
 
 - (UIImage *) image
@@ -86,6 +88,7 @@
 
 - (IBAction)cancelVideo:(UIButton *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+    self.threadViewController.titleCard = nil;
 }
 
 @end

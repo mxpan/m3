@@ -24,7 +24,11 @@
                     <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <items>
-                        <barButtonItem title="Create Movie" width="303" id="2DX-S2-saP"/>
+                        <barButtonItem title="Create Movie" width="303" id="2DX-S2-saP">
+                            <connections>
+                                <action selector="createFullMovie:" destination="-1" id="8tH-Ix-fLC"/>
+                            </connections>
+                        </barButtonItem>
                     </items>
                 </toolbar>
             </subviews>
