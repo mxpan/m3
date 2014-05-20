@@ -35,8 +35,15 @@
     
     for (int i=0; i<self.posts.count; i++){
         M3Post *post = [self.posts objectAtIndex:i];
-        NSURL *vidURL = [M3AppDelegate fileURLForTemporaryFileNamed:@"final-movie.mov"];
-        [[post.video getData] writeToURL:vidURL atomically:YES];
+//        NSURL *vidURL = [M3AppDelegate fileURLForTemporaryFileNamed:[NSString stringWithFormat:@"video%i.mov", i]];
+        NSURL *vidURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"video%i.mov", i]]];
+        NSError *error;
+        bool success = [[post.video getData] writeToURL:vidURL options:0 error:&error];
+//        success = [plistData writeToFile:file options:0 error:&error];
+        if (!success) {
+            NSLog(@"writeToFile failed with error %@", [error localizedDescription]);
+        }
+
         AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:vidURL options:nil];
         AVAssetTrack *assetTrack = [[asset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
         
