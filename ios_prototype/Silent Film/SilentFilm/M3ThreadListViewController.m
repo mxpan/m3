@@ -11,10 +11,13 @@
 #import "M3ThreadViewController.h"
 #import "M3LoginManager.h"
 #import "PFUser+SilentFilm.h"
+#import <UIAlertView+BlocksKit.h>
 
 @interface M3ThreadListViewController () <UIAlertViewDelegate>
 
 @property NSMutableArray *threads;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property UIRefreshControl *refreshControl;
 
 @end
 
@@ -24,15 +27,20 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"Threads";
-        
-        UIBarButtonItem *addThreadButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addThread)];
-        [self.navigationItem setRightBarButtonItem:addThreadButton];
+        self.title = @"Films";
         
         UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStylePlain target:self action:@selector(logoutButtonPressed)];
         [self.navigationItem setLeftBarButtonItem:logoutButton];
     }
     return self;
+}
+
+- (IBAction)createThreadButtonPressed:(id)sender
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Start new film" message:@"Title your film:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    alertView.tag = 2;
+    [alertView show];
 }
 
 - (void)viewDidLoad
@@ -41,6 +49,7 @@
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshControl];
     self.refreshControl = refreshControl;
 }
 
@@ -54,14 +63,6 @@
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Are you sure you want to logout?" message:[NSString stringWithFormat:@""] delegate:self cancelButtonTitle:@"Nevermind" otherButtonTitles:@"Yes!", nil];
     alertView.tag = 1;
-    [alertView show];
-}
-
-- (void)addThread
-{
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Start new movie" message:@"Name your movie!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-    alertView.tag = 2;
     [alertView show];
 }
 
