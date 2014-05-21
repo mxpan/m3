@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3257FD40192C42E200F5B710 /* silentmovie_logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3257FD3F192C42E200F5B710 /* silentmovie_logo.jpg */; };
+		3257FD42192C468800F5B710 /* login_strip.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3257FD41192C468800F5B710 /* login_strip.jpg */; };
+		3257FD45192C4D5500F5B710 /* M3CompiledVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3257FD44192C4D5500F5B710 /* M3CompiledVideo.m */; };
 		34A56DFA1916F5CA00F12D84 /* M3CreateCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34A56DF81916F5CA00F12D84 /* M3CreateCardViewController.m */; };
 		34A56DFB1916F5CA00F12D84 /* M3CreateCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34A56DF91916F5CA00F12D84 /* M3CreateCardViewController.xib */; };
 		34A56E03191701F700F12D84 /* silent movie card portrait.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 34A56E02191701F700F12D84 /* silent movie card portrait.jpg */; };
@@ -70,6 +73,10 @@
 
 /* Begin PBXFileReference section */
 		2D24900D56864186B9B7A609 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3257FD3F192C42E200F5B710 /* silentmovie_logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = silentmovie_logo.jpg; sourceTree = "<group>"; };
+		3257FD41192C468800F5B710 /* login_strip.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = login_strip.jpg; sourceTree = "<group>"; };
+		3257FD43192C4D5500F5B710 /* M3CompiledVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3CompiledVideo.h; sourceTree = "<group>"; };
+		3257FD44192C4D5500F5B710 /* M3CompiledVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3CompiledVideo.m; sourceTree = "<group>"; };
 		34A56DF71916F5CA00F12D84 /* M3CreateCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3CreateCardViewController.h; sourceTree = "<group>"; };
 		34A56DF81916F5CA00F12D84 /* M3CreateCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3CreateCardViewController.m; sourceTree = "<group>"; };
 		34A56DF91916F5CA00F12D84 /* M3CreateCardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = M3CreateCardViewController.xib; sourceTree = "<group>"; };
@@ -208,6 +215,8 @@
 				BDC9278F19104901005F4450 /* M3LoginManager.m */,
 				BD54770F191716DB00C64850 /* M3Video.h */,
 				BD547710191716DB00C64850 /* M3Video.m */,
+				3257FD43192C4D5500F5B710 /* M3CompiledVideo.h */,
+				3257FD44192C4D5500F5B710 /* M3CompiledVideo.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -318,6 +327,8 @@
 		BDB95A02190F67E00092AD8F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3257FD41192C468800F5B710 /* login_strip.jpg */,
+				3257FD3F192C42E200F5B710 /* silentmovie_logo.jpg */,
 				34A56E02191701F700F12D84 /* silent movie card portrait.jpg */,
 				BD2FEC4C19105B0F00C44ACB /* test7.mp4 */,
 				BDB95A03190F67E00092AD8F /* Silent Film-Info.plist */,
@@ -430,6 +441,8 @@
 			files = (
 				BDB95A17190F67E00092AD8F /* Images.xcassets in Resources */,
 				BDB95A3A190F69280092AD8F /* M3LoginViewController.xib in Resources */,
+				3257FD40192C42E200F5B710 /* silentmovie_logo.jpg in Resources */,
+				3257FD42192C468800F5B710 /* login_strip.jpg in Resources */,
 				BD54770E1916FFF700C64850 /* silent-film.jpg in Resources */,
 				BDB95A06190F67E00092AD8F /* InfoPlist.strings in Resources */,
 				34A56E03191701F700F12D84 /* silent movie card portrait.jpg in Resources */,
@@ -488,6 +501,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3257FD45192C4D5500F5B710 /* M3CompiledVideo.m in Sources */,
 				BD2FEC4B1910572800C44ACB /* M3ThreadViewController.m in Sources */,
 				BD2FEC3D19104C0700C44ACB /* M3NavigationController.m in Sources */,
 				34A56DFA1916F5CA00F12D84 /* M3CreateCardViewController.m in Sources */,
@@ -583,6 +597,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "96AEF1B9-CDAD-4F18-9186-2EF5DAC39E0A";
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -614,9 +629,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = NO;
 				PROVISIONING_PROFILE = "96AEF1B9-CDAD-4F18-9186-2EF5DAC39E0A";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};

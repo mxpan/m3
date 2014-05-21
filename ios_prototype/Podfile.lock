@@ -16,11 +16,11 @@ DEPENDENCIES:
   - PonyDebugger
 
 SPEC CHECKSUMS:
-  Bolts: dc620a31cf67c29bce3e3d14a07a12e797a1a154
-  Facebook-iOS-SDK: 63e19ff8d275d63b765819f492a4e71e445f9822
-  MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
-  Parse: 3739f0b211c49115bad96d6b0969b804d4da2f24
-  PonyDebugger: d31607145d785b2315cd6f6a4ebaa378eb0c1340
-  SocketRocket: 7ac946bcce46287a791dfff3c1f8daa692821dae
+  Bolts: 91c2af8eae1d44e1dd75946a5b0ae04a43ea43e4
+  Facebook-iOS-SDK: 93aae4f3dacd6bad35f419e09889397697b1e20b
+  MBProgressHUD: c356980b0cd097f19acec959b49dca5eb8ec31be
+  Parse: ffebaecaddd32cb52671010f81567c298ff93d04
+  PonyDebugger: 256e19c15c093e15f950f92b1a5017f3feb3c87e
+  SocketRocket: 79a68ae186063c65e1fe6f638b1ae2927aa5f304
 
 COCOAPODS: 0.32.1
