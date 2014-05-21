@@ -186,13 +186,16 @@
     M3ThreadViewController *weakSelf = self;
     [self.thread compileFullVideo:videoCompiler withBlock:^(PFObject *object, NSError *error) {
         [progressHud hide:YES];
-        if ([object isKindOfClass:[M3Post class]]) {
-            M3Post *post = (M3Post*)object;
-            [weakSelf.thread.posts insertObject:post atIndex:weakSelf.thread.posts.count];
-            [weakSelf.tableView reloadData];
-            [weakSelf.thread refreshInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-                [weakSelf.tableView reloadData];
-            }];
+        if ([object isKindOfClass:[M3Thread class]]) {
+            M3Thread *thread = (M3Thread*)object;
+            if (thread.finalizedFilm) {
+                [UIAlertView bk_showAlertViewWithTitle:@"Film Complete!" message:nil cancelButtonTitle:@"Okay" otherButtonTitles:@[@"Open in Safari"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                    if (buttonIndex == 1) {
+                        NSURL *videoUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://mxpan.github.io/m3/silent_film/index.html?film=%@", thread.objectId]];
+                        [[UIApplication sharedApplication] openURL:videoUrl];
+                    }
+                }];
+            }
         }
     } progressBlock:^(int percentDone) {
         progressHud.progress = percentDone / 100.0f;

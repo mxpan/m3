@@ -19,7 +19,7 @@
 @implementation M3Thread
 
 @synthesize posts;
-@dynamic users, title;
+@dynamic users, title, finalizedFilm;
 
 + (NSString*)parseClassName
 {
@@ -74,20 +74,27 @@
         NSData *data = [NSData dataWithContentsOfURL:videoCompiler.outputURL];
         PFFile *videoFile = [PFFile fileWithName:@"video.mp4" data:data];
         [videoFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            M3Post *post = [M3Post new];
-            post.user = [PFUser currentUser];
-            post.video = videoFile;
-            post.thread = self;
-            [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                PFPush *push = [[PFPush alloc] init];
-                [push setMessage:[NSString stringWithFormat:@"New video from %@!", post.user.nickname]];
-                [push setChannel:[self.otherUser channelName]];
-                [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    if (block) {
-                        block(post, nil);
-                    }
-                }];
+            self.finalizedFilm = videoFile;
+            [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (block) {
+                    block(self, nil);
+                }
             }];
+
+//            M3Post *post = [M3Post new];
+//            post.user = [PFUser currentUser];
+//            post.video = videoFile;
+//            post.thread = self;
+//            [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//                PFPush *push = [[PFPush alloc] init];
+//                [push setMessage:[NSString stringWithFormat:@"New video from %@!", post.user.nickname]];
+//                [push setChannel:[self.otherUser channelName]];
+//                [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//                    if (block) {
+//                        block(post, nil);
+//                    }
+//                }];
+//            }];
         } progressBlock:progressBlock];
     }];
 }

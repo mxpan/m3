@@ -16,6 +16,7 @@
 @property NSString *title;
 @property NSArray *users;
 @property NSMutableArray *posts;
+@property PFFile *finalizedFilm;
 
 + (void)fetchThreadsForCurrentUserWithCallback:(void (^)(NSArray*))callback;
 - (void)addPostWithVideo:(M3Video*)video withBlock:(PFObjectResultBlock)block progressBlock:(PFProgressBlock)progressBlock;
