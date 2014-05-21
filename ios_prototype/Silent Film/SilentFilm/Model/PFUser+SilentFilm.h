@@ -12,6 +12,9 @@
 
 @interface PFUser (SilentFilm)
 
+@property NSString *nickname;
+@property NSString *facebookId;
+
 - (NSString*)channelName;
 - (NSString*)channelNameForNewThreads;
 - (NSString*)channelNameForNewPostInThread:(M3Thread*)thread;

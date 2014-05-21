@@ -11,6 +11,8 @@
 
 @implementation PFUser (SilentFilm)
 
+@dynamic facebookId;
+
 - (NSString*)channelName
 {
     return [NSString stringWithFormat:@"user_%@", self.objectId];

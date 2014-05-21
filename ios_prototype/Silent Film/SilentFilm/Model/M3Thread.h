@@ -13,6 +13,7 @@
 
 @interface M3Thread : PFObject <PFSubclassing>
 
+@property NSString *title;
 @property NSArray *users;
 @property NSMutableArray *posts;
 

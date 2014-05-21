@@ -8,6 +8,7 @@
 
 #import "M3SignUpViewController.h"
 #import "M3LoginManager.h"
+#import "PFUser+SilentFilm.h"
 
 @interface M3SignUpViewController ()
 
@@ -42,7 +43,7 @@
 {
     if ([[self.nicknameTextField text] length]) {
         PFUser *currentUser = [PFUser currentUser];
-        currentUser[@"nickname"] = self.nicknameTextField.text;
+        currentUser.nickname = self.nicknameTextField.text;
         [currentUser saveInBackground];
         [[NSNotificationCenter defaultCenter] postNotificationName:M3UserUpdateNotification object:nil];
     }

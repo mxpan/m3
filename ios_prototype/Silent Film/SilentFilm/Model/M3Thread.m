@@ -19,7 +19,7 @@
 @implementation M3Thread
 
 @synthesize posts;
-@dynamic users;
+@dynamic users, title;
 
 + (NSString*)parseClassName
 {
@@ -56,7 +56,7 @@
             post.thread = self;
             [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 PFPush *push = [[PFPush alloc] init];
-                [push setMessage:[NSString stringWithFormat:@"New video from %@!", post.user[@"nickname"]]];
+                [push setMessage:[NSString stringWithFormat:@"New video from %@!", post.user.nickname]];
                 [push setChannel:[self.otherUser channelName]];
                 [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (block) {
@@ -80,7 +80,7 @@
             post.thread = self;
             [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 PFPush *push = [[PFPush alloc] init];
-                [push setMessage:[NSString stringWithFormat:@"New video from %@!", post.user[@"nickname"]]];
+                [push setMessage:[NSString stringWithFormat:@"New video from %@!", post.user.nickname]];
                 [push setChannel:[self.otherUser channelName]];
                 [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (block) {

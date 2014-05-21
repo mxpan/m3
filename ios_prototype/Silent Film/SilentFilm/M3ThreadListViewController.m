@@ -59,7 +59,7 @@
 
 - (void)addThread
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Start new thread" message:@"Enter a nickname" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Start new movie" message:@"Name your movie!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
     alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     alertView.tag = 2;
     [alertView show];
@@ -84,31 +84,39 @@
             [[M3LoginManager sharedLoginManager] logoutWithCallback:nil];
         }
     } else if (alertView.tag == 2 && buttonIndex == 1) {
-        NSString *username = [[[alertView textFieldAtIndex:0] text] lowercaseString];
-        if (username.length) {
-            PFQuery *query = [PFUser query];
-            [query whereKey:@"nickname" equalTo:username];
-            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                if (objects.count) {
-                    PFUser *otherUser = [objects firstObject];
-                    if (![otherUser isEqual:[PFUser currentUser]]) {
-                        M3Thread *thread = [M3Thread new];
-                        thread.users = @[otherUser, [PFUser currentUser]];
-                        [self.threads addObject:thread];
-                        [thread saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                            [self refresh];
-                            PFPush *push = [[PFPush alloc] init];
-                            [push setChannel:[otherUser channelNameForNewThreads]];
-                            [push setMessage:[NSString stringWithFormat:@"%@ has started a thread with you!", [PFUser currentUser][@"nickname"]]];
-                            [push sendPushInBackground];
-                        }];
-                    }
-                } else {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"User Not Found" message:@"Try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [alertView show];
-                }
-            }];
-        }
+        //        NSString *username = [[[alertView textFieldAtIndex:0] text] lowercaseString];
+        //        if (username.length) {
+        //            PFQuery *query = [PFUser query];
+        //            [query whereKey:@"nickname" equalTo:username];
+        //            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        //                if (objects.count) {
+        //                    PFUser *otherUser = [objects firstObject];
+        //                    if (![otherUser isEqual:[PFUser currentUser]]) {
+        //                        M3Thread *thread = [M3Thread new];
+        //                        thread.users = @[otherUser, [PFUser currentUser]];
+        //                        [self.threads addObject:thread];
+        //                        [thread saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        //                            [self refresh];
+        //                            PFPush *push = [[PFPush alloc] init];
+        //                            [push setChannel:[otherUser channelNameForNewThreads]];
+        //                            [push setMessage:[NSString stringWithFormat:@"%@ has started a thread with you!", [PFUser currentUser][@"nickname"]]];
+        //                            [push sendPushInBackground];
+        //                        }];
+        //                    }
+        //                } else {
+        //                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"User Not Found" message:@"Try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        //                    [alertView show];
+        //                }
+        //            }];
+        //        }
+        NSString *title = [[alertView textFieldAtIndex:0] text];
+        M3Thread *thread = [M3Thread new];
+        thread.users = @[[PFUser currentUser]];
+        thread.title = title;
+        [self.threads addObject:thread];
+        [thread saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            [self refresh];
+        }];
     }
 }
 
@@ -147,7 +155,8 @@
     
     if (self.threads.count) {
         M3Thread *thread = [self.threads objectAtIndex:indexPath.row];
-        [[cell textLabel] setText:[NSString stringWithFormat:@"Thread with %@ (%@)", [[thread otherUser] objectForKey:@"nickname"], [thread objectId]]];
+        //        [[cell textLabel] setText:[NSString stringWithFormat:@"Thread with %@ (%@)", [[thread otherUser] objectForKey:@"nickname"], [thread objectId]]];
+        cell.textLabel.text = thread.title;
     }
     
     return cell;

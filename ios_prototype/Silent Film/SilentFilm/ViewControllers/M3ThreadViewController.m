@@ -18,8 +18,12 @@
 #import <TargetConditionals.h>
 #import "M3Video.h"
 #import "M3CompiledVideo.h"
+#import <BlocksKit+UIKit.h>
 
-@interface M3ThreadViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
+#import <FacebookSDK/FacebookSDK.h>
+#import "PFUser+SilentFilm.h"
+
+@interface M3ThreadViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, FBFriendPickerDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -37,20 +41,48 @@
     self = [super init];
     if (self) {
         self.thread = thread;
-        UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Add Video" style:UIBarButtonItemStylePlain target:self action:@selector(showTitleCardScreen)];
+        UIBarButtonItem *button = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAdd handler:^(id sender) {
+            UIActionSheet *actionSheet = [[UIActionSheet alloc] bk_initWithTitle:@"Add..."];
+            [actionSheet bk_addButtonWithTitle:@"A user" handler:^{
+                [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                    NSString *facebookId = result[@"id"];
+                    
+                    FBFriendPickerViewController *friendPicker = [FBFriendPickerViewController new];
+                    friendPicker.delegate = self;
+                    friendPicker.userID = facebookId;
+                    friendPicker.session = [PFFacebookUtils session];
+                    [friendPicker loadData];
+                    
+                    [self presentViewController:friendPicker animated:YES completion:nil];
+                    
+                }];
+            }];
+            
+            [actionSheet bk_addButtonWithTitle:@"A video" handler:^{
+                [self showTitleCardScreen];
+            }];
+            
+            [actionSheet bk_addButtonWithTitle:@"Cancel" handler:^{
+                [actionSheet dismissWithClickedButtonIndex:2 animated:YES];
+            }];
+            
+            [actionSheet showInView:self.view];
+        }];
         [self.navigationItem setRightBarButtonItem:button];
+        self.title = self.thread.title;
     }
     return self;
 }
 
 - (void)refresh
 {
-    
+    [self.tableView reloadData];
     [self.thread fetchPostsWithCallback:^(NSArray *newPosts) {
         if (newPosts.count) {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"New Message!" message:nil delegate:nil cancelButtonTitle:@"Okay!" otherButtonTitles: nil];
             [alertView show];
         }
+        [self.tableView reloadData];
     }];
 }
 
@@ -186,25 +218,43 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.thread.posts.count;
+    if (section == 0) {
+        return self.thread.users.count;
+    } else {
+        return self.thread.posts.count;
+    }
+}
+
+- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return @"Users";
+    } else {
+        return @"Posts";
+    }
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
+ 
+    if (indexPath.section == 0) {
+        PFUser *user = [self.thread.users objectAtIndex:indexPath.row];
+        cell.textLabel.text = user.nickname;
+    } else if (indexPath.section == 1) {
+        M3Post *post = [self.thread.posts objectAtIndex:indexPath.row];
+        cell.textLabel.text = [NSString stringWithFormat:@"Video by %@", post.user.nickname];
+        NSDateFormatter *format = [[NSDateFormatter alloc] init];
+        [format setDateFormat:@"MMM dd, yyyy hh:mm a"];
+        NSString *dateString = [format stringFromDate:post.createdAt];
         
-    M3Post *post = [self.thread.posts objectAtIndex:indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"Video by %@", [[post user] objectForKey:@"nickname"]];
-    NSDateFormatter *format = [[NSDateFormatter alloc] init];
-    [format setDateFormat:@"MMM dd, yyyy hh:mm a"];
-    NSString *dateString = [format stringFromDate:post.createdAt];
-    
-    cell.detailTextLabel.text = dateString;
+        cell.detailTextLabel.text = dateString;
+    }
     
     return cell;
 }
@@ -214,17 +264,72 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    M3Post *post = [self.thread.posts objectAtIndex:indexPath.row];
-    NSURL *videoUrl = [NSURL URLWithString:post.video.url];
-    MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:videoUrl];
-    
-//    [[NSNotificationCenter defaultCenter] removeObserver:moviePlayer
-//                                                    name: MPMoviePlayerPlaybackDidFinishNotification
-//                                                  object:moviePlayer.moviePlayer];
-//
-    
-    [self presentMoviePlayerViewControllerAnimated:moviePlayer];
+    if (indexPath.section == 1) {
+        M3Post *post = [self.thread.posts objectAtIndex:indexPath.row];
+        NSURL *videoUrl = [NSURL URLWithString:post.video.url];
+        MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:videoUrl];
+        
+        //    [[NSNotificationCenter defaultCenter] removeObserver:moviePlayer
+        //                                                    name: MPMoviePlayerPlaybackDidFinishNotification
+        //                                                  object:moviePlayer.moviePlayer];
+        //
+        
+        [self presentMoviePlayerViewControllerAnimated:moviePlayer];
+    }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark -
+#pragma mark FBFriendPicker
+
+- (void)facebookViewControllerCancelWasPressed:(id)sender
+{
+    [sender dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)facebookViewControllerDoneWasPressed:(FBFriendPickerViewController*)picker
+{
+    NSMutableArray *facebookIds = [NSMutableArray array];
+    for (id<FBGraphUser> user in [picker selection]) {
+        NSLog(@"User ID: %@", [user objectID]);
+        [facebookIds addObject:[user objectID]];
+    }
+    
+    [picker dismissViewControllerAnimated:YES completion:^{
+        PFQuery *query = [PFUser query];
+        [query whereKey:@"facebookId" containedIn:[NSArray arrayWithArray:facebookIds]];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            NSMutableArray *currentUsers = [NSMutableArray arrayWithArray:[self.thread users]];
+            NSMutableArray *newUsers = [NSMutableArray array];
+            
+            for (PFUser *user in objects) {
+                BOOL existing = NO;
+                for (PFUser *currentUser in currentUsers) {
+                    if ([user isEqual:currentUser]) {
+                        existing = YES;
+                    }
+                }
+                
+                if (!existing) {
+                    [newUsers addObject:user];
+                    [currentUsers addObject:user];
+                }
+            }
+            
+            for (PFUser *newUser in newUsers) {
+                PFPush *push = [[PFPush alloc] init];
+                [push setChannel:[newUser channelNameForNewThreads]];
+                [push setMessage:[NSString stringWithFormat:@"%@ has started a thread with you!", [PFUser currentUser].nickname]];
+                [push sendPushInBackground];
+            }
+            
+            self.thread.users = currentUsers;
+            [self.thread saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                [self refresh];
+            }];
+        }];
+    }];
+    
 }
 
 @end
