@@ -61,12 +61,7 @@
         [installation addUniqueObject:[[PFUser currentUser] channelName] forKey:@"channels"];
         [installation saveInBackground];
         
-        NSString *nickname = [[PFUser currentUser] nickname];
-        if (nickname && ![nickname isEqualToString:@""]) {
-            [self.view addSubview:self.threadListNavigationController.view];
-        } else {
-            [self.view addSubview:self.signUpViewController.view];
-        }
+        [self.view addSubview:self.threadListNavigationController.view];
     } else {
         [self.view addSubview:self.loginViewController.view];
     }

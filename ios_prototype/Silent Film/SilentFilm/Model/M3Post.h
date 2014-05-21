@@ -5,6 +5,7 @@
 //  Created by Max Meyers on 4/29/14.
 //  Copyright (c) 2014 M3. All rights reserved.
 //
+#import <Parse/Parse.h>
 
 @class M3Thread, M3User;
 

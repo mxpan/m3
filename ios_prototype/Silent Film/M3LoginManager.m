@@ -35,6 +35,7 @@ NSString *const M3UserUpdateNotification = @"M3UserUpdateNotification";
             [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
                 NSString *fbId = result[@"id"];
                 user.facebookId = fbId;
+                user.nickname = result[@"name"];
                 [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (success) {
                         success(user);
