@@ -91,6 +91,7 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    [self sortPostArray:self.thread.posts];
 }
 
 - (void)showTitleCardScreen {
@@ -248,6 +249,16 @@
         return @"Users";
     } else {
         return @"Posts";
+    }
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        M3Post *post = [self.thread.posts objectAtIndex:indexPath.row];
+        [post deleteInBackground];
+        [self.thread.posts removeObject:post];
+        [self.tableView reloadData];
     }
 }
 
