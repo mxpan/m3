@@ -47,7 +47,8 @@
     [self hideExtraText];
     [self setCardLabelText: [self.inputTextField text]];
     
-    [self.threadViewController createCardViewControllerFinished:self];
+    if (self.isTitleCard) [self.threadViewController createCardViewControllerFinished:self];
+    else [self.threadViewController dismissEndingCardAndUpload:self];
 }
 
 - (void) setCardLabelText: (NSString *)text {
@@ -83,7 +84,8 @@
 }
 
 - (IBAction)dontCreateCardPressed:(UIButton *)sender {
-    [self.threadViewController dismissCardViewController:self];
+    if (self.isTitleCard) [self.threadViewController dismissCardViewController:self];
+    else [self.threadViewController skipEndingCard:self];
 }
 
 - (IBAction)cancelVideo:(UIButton *)sender {

@@ -17,6 +17,8 @@
 - (void)createCardViewControllerFinished:(M3CreateCardViewController*)createCardViewController;
 - (void)dismissCardViewController:(M3CreateCardViewController*)createCardViewController;
 - (void)dismissAvCam: (AVCamViewController*)avCamVc;
+- (void)dismissEndingCardAndUpload: (M3CreateCardViewController *)createCardViewController;
+- (void)skipEndingCard: (M3CreateCardViewController *)createCardViewController;
 
 @property UIImage *titleCard;
 

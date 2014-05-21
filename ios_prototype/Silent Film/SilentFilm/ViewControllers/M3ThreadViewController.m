@@ -174,10 +174,9 @@
     } progressBlock:^(int percentDone) {
         progressHud.progress = percentDone / 100.0f;
     }];
-
 }
 
-- (void) sortPostArray:(NSMutableArray*)arr{
+- (void) sortPostArray:(NSMutableArray*)arr {
     [arr sortUsingComparator:^NSComparisonResult(id a, id b) {
         NSDate *first = [(M3Post*)a createdAt];
         NSDate *second = [(M3Post*)b createdAt];
@@ -185,13 +184,39 @@
     }];
 }
 
+- (void)showEndingCardScreen {
+    M3CreateCardViewController *cardView = [[M3CreateCardViewController alloc] init];
+    cardView.isTitleCard = false;
+    cardView.threadViewController = self;
+    [self presentViewController:cardView animated:YES completion:nil];
+}
+
 - (IBAction)createFullMovie:(UIBarButtonItem *)sender {
+    [self showEndingCardScreen];
+}
+
+- (void)dismissEndingCardAndUpload: (M3CreateCardViewController *)createCardViewController {
+    self.endCard = createCardViewController.image;
+    [createCardViewController dismissViewControllerAnimated:YES completion:^{
+        [self renderFullVideo];
+    }];
+}
+
+- (void)skipEndingCard: (M3CreateCardViewController *)createCardViewController {
+    self.endCard = nil;
+    [createCardViewController dismissViewControllerAnimated:YES completion:^{
+        [self renderFullVideo];
+    }];
+}
+
+- (void)renderFullVideo{
     MBProgressHUD *progressHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     progressHud.mode = MBProgressHUDModeAnnularDeterminate;
     progressHud.labelText = @"Uploading video...";
     M3CompiledVideo *videoCompiler = [[M3CompiledVideo alloc] init];
     videoCompiler.posts = self.thread.posts;
     videoCompiler.outputURL = [M3AppDelegate fileURLForTemporaryFileNamed:@"final-movie.mov"];
+    videoCompiler.endCard = self.endCard;
     
     M3ThreadViewController *weakSelf = self;
     [self.thread compileFullVideo:videoCompiler withBlock:^(PFObject *object, NSError *error) {
