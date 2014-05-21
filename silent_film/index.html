@@ -14,8 +14,9 @@
 <body>
   
   <div id="main">
-    <video id="silent_film_video" controls>
+    <h1 id="title"></h1>
 
+    <video id="silent_film_video" controls>
     </video>
   </div>
 
@@ -41,6 +42,9 @@
 
           video = document.getElementById('silent_film_video')
           video.appendChild(source);
+
+          title = document.getElementById('title')
+          title.innerHTML = thread.attributes.title
         },
         error: function(object, error) {
           // The object was not retrieved successfully.
