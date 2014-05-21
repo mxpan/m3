@@ -164,6 +164,7 @@
         if ([object isKindOfClass:[M3Post class]]) {
             M3Post *post = (M3Post*)object;
             [weakSelf.thread.posts insertObject:post atIndex:weakSelf.thread.posts.count];
+            [self sortPostArray:weakSelf.thread.posts];
             [weakSelf.tableView reloadData];
             [weakSelf.thread refreshInBackgroundWithBlock:^(PFObject *object, NSError *error) {
                 [weakSelf.tableView reloadData];
@@ -173,6 +174,14 @@
         progressHud.progress = percentDone / 100.0f;
     }];
 
+}
+
+- (void) sortPostArray:(NSMutableArray*)arr{
+    [arr sortUsingComparator:^NSComparisonResult(id a, id b) {
+        NSDate *first = [(M3Post*)a createdAt];
+        NSDate *second = [(M3Post*)b createdAt];
+        return [first compare:second];
+    }];
 }
 
 - (IBAction)createFullMovie:(UIBarButtonItem *)sender {
