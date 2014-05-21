@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="M3ThreadViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="M3ThreadListViewController">
             <connections>
-                <outlet property="tableView" destination="9WV-Xd-FNO" id="XGw-yi-reY"/>
-                <outlet property="view" destination="iN0-l3-epB" id="xQp-1C-1d7"/>
+                <outlet property="tableView" destination="9WV-Xd-FNO" id="eI4-XU-unQ"/>
+                <outlet property="view" destination="iN0-l3-epB" id="UWb-FZ-Vg8"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -18,14 +18,19 @@
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9WV-Xd-FNO">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="WDH-jY-4Ah"/>
+                        <outlet property="delegate" destination="-1" id="beB-Bc-jNi"/>
+                    </connections>
                 </tableView>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aAR-ga-qcD">
                     <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <items>
-                        <barButtonItem title="Finalize Film" width="303" id="2DX-S2-saP">
+                        <barButtonItem title="Start New Film" width="303" id="2DX-S2-saP">
                             <connections>
-                                <action selector="createFullMovie:" destination="-1" id="8tH-Ix-fLC"/>
+                                <action selector="createThreadButtonPressed:" destination="-1" id="Xmd-eL-wqP"/>
                             </connections>
                         </barButtonItem>
                     </items>

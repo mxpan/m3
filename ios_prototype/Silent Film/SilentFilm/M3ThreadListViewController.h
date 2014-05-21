@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface M3ThreadListViewController : UITableViewController
+@interface M3ThreadListViewController : UIViewController
 
 @end
