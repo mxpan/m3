@@ -22,7 +22,6 @@
     AVMutableComposition *composition = [AVMutableComposition composition];
     AVMutableCompositionTrack *videoCompositionTrack = [composition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
     
-    AVMutableVideoComposition *mutableVideoComposition = [AVMutableVideoComposition videoComposition];
     
     NSMutableArray *mutableCompositionInstructionsArr = [[NSMutableArray alloc] init];
    
@@ -35,11 +34,11 @@
     
     for (int i=0; i<self.posts.count; i++){
         M3Post *post = [self.posts objectAtIndex:i];
-//        NSURL *vidURL = [M3AppDelegate fileURLForTemporaryFileNamed:[NSString stringWithFormat:@"video%i.mov", i]];
+
         NSURL *vidURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"video%i.mov", i]]];
         NSError *error;
-        bool success = [[post.video getData] writeToURL:vidURL options:0 error:&error];
-//        success = [plistData writeToFile:file options:0 error:&error];
+        bool success = [[[post video] getData] writeToURL:vidURL options:0 error:&error];
+
         if (!success) {
             NSLog(@"writeToFile failed with error %@", [error localizedDescription]);
         }
@@ -69,16 +68,10 @@
         startTime = CMTimeAdd(startTime, assetTrack.timeRange.duration);
     }
     
-    mutableVideoComposition.instructions = [[NSArray alloc] initWithArray:mutableCompositionInstructionsArr];
-    
-    mutableVideoComposition.renderSize = finalVideoSize;
-    mutableVideoComposition.frameDuration = CMTimeMake(1, 30);
-    
-    AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:composition presetName:AVAssetExportPresetMediumQuality];
+    AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:composition presetName:AVAssetExportPresetPassthrough];
     exporter.outputURL = self.outputURL;
     exporter.outputFileType = AVFileTypeQuickTimeMovie;
-    exporter.videoComposition = mutableVideoComposition;
-        
+    
     [exporter exportAsynchronouslyWithCompletionHandler:^{
         NSError *error = exporter.error;
         if (error) {
