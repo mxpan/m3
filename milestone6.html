@@ -35,23 +35,35 @@
 <h2>Milestone 6: Functional Prototype II</h2>
 <b>Changes:</b>
 <br/>
-<p>Based on our user testing from last week, we realized that we needed to pivot our idea slightly to keep users engaged in the silent-film-making process. We needed a way for users to communicate with more than just a sequence of 2 or 3 videos. Thus, we decided to make our app into a collaborative silent movie making platform (similar to Google Docs, but for silent films). Users can start a thread with one or more people and each person in the thread can make and contribute silent movie clips. When a movie is finished, users can export it and share it with their friends.</p>
+<p>Based on our user testing from last week, we realized that we needed to pivot our idea slightly to keep users engaged in the silent-film-making process beyond creating just 2 or 3 videos in a thread. From our testing, we noticed users enjoyed creating the silent videos and playing them back; however, the short conversations arose when users felt they no longer had a response to keep the thread going. Thus, we decided to make our app into a collaborative silent movie making platform (similar to Google Docs, but for silent film production). Users can start a movie thread and later add facebook friends where each person can make and contribute silent movie clips to the overall composition. When a movie contains all the desired clips, users can export it and share it with their friends.</p>
 
-<p>Other changes that we made include: showing users by their Facebook name instead of their made-up nickname, reversing the order of the videos (newest on bottom), removing the end title cards from all individual videos (users have the chance to add an ending card to the whole movie when they export), and various UI and design changes throughout the app.</p>
+<b>Updates to Existing Features based on Testing:</b>
+<ul>
+  <li>Users did not understand why they must log in to Facebook and create a separate nickname in the app.  <i>We now represent users by their Facebook names instead of a made-up nickname for consistency.</i></li>
+  <li>Users were unsure where their newly filmed videos were placed within the thread of clips and could not interpret the standard date-time stamp associated with the clips in the table. <i>We now order the videos in chronological order (oldest on top to newest on the bottom) to mirror their ordering in the final exported film. We also display the date and time in the table in 12-hour format.</i></li>
+  <li>We noticed in our testing that users hardly ever used the ending title card in the individual video clips. <i>We have removed option of adding an ending title cards from all individual videos, but users have the chance to add an ending card to the whole movie when export the final compilation.</i></li>
+  <li>Finally, we made various UI and design changes throughout the app for simplicity and usability.</li>
+</ul>
 
 <b>New Features:</b>
 <ul>
-  <li>Start threads with multiple people</li>
+  <li>Create movies alone or with multiple people</li>
+    <ul><li>Users can create movies from a series of videos, and can add their Facebook friends to contribute individual movies to the overall film.</li></ul>
   <li>Option to skip adding a title card in any video</li>
+    <ul><li>When presented with the title card during testing, some users wanted to skip the addition of the card.  This is now an option.</li></ul>
   <li>Cancel button on the create card and video screens</li>
+    <ul><li>Some users accidentally clicked the button to create a new movie, but they did not have a means of canceling their film.  They can now click the X in the top left of the screen at any point when filming a clip to cancel.</li></ul>
   <li>Automatically returns to thread view when movie finishes playing</li>
+    <ul><li>When viewing their video clips, many users continued watching the screen even after the movie ended since sound is usually a signal to viewers of the end of the film.  Now, the video screen closes when the currently playing movie ends.</li></ul>
   <li>Deletion of a video from its thread</li>
-  <li>Export finished movie to our website</li>
+    <ul><li>Some users filmed clips and wanted to delete the films afterwards.  Now they can swipe to the left over a video to reveal a delete button.</li></ul>
+  <li>Export finished movie to our website and share on Facebook</li>
+    <ul><li>Clicking the "Export Compiled Film" button renders a movie from the list of individual clips and uploads the film online. Users are then presented with the option to post the video's URL to Facebook.</li></ul>
 </ul>
 
 <b>Implementation Progress:</b>
 <br/>
-<p>All of the features and changes mentioned above have been implemented. We are currently working on exporting our silent movies directly to Facebook and sending them via email. We will also continue to clean up the UI in the coming weeks. Another one of our goals is to get rid of the the volume bar (which is competely useless) at the bottom of our videos.</p>
+<p>All of the features and changes mentioned above have been implemented. We are currently working on exporting our silent movies directly to Facebook and sending them via email. We will also continue to clean up the UI in the coming weeks. Another one of our goals is to get rid of the the volume slider (which is competely useless) at the bottom of our videos.</p>
 
 <!-- START FOOTER -->
 
