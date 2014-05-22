@@ -61,6 +61,7 @@
 		BDB95A4D190F6AA00092AD8F /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDB95A45190F6AA00092AD8F /* StoreKit.framework */; };
 		BDB95A4E190F6AA00092AD8F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDB95A46190F6AA00092AD8F /* SystemConfiguration.framework */; };
 		BDC9279019104901005F4450 /* M3LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BDC9278F19104901005F4450 /* M3LoginManager.m */; };
+		BDE14886192DD65600DBA7D9 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE14885192DD65600DBA7D9 /* Social.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,6 +151,7 @@
 		BDB95A46190F6AA00092AD8F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BDC9278E19104901005F4450 /* M3LoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3LoginManager.h; sourceTree = "<group>"; };
 		BDC9278F19104901005F4450 /* M3LoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3LoginManager.m; sourceTree = "<group>"; };
+		BDE14885192DD65600DBA7D9 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		FF8C06E9A916444F8FB7B77E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -158,6 +160,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDE14886192DD65600DBA7D9 /* Social.framework in Frameworks */,
 				BD2FEC7119109B9500C44ACB /* CoreData.framework in Frameworks */,
 				BDB95A47190F6AA00092AD8F /* CFNetwork.framework in Frameworks */,
 				BDB95A4C190F6AA00092AD8F /* Security.framework in Frameworks */,
@@ -291,6 +294,7 @@
 		BDB959FA190F67DF0092AD8F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BDE14885192DD65600DBA7D9 /* Social.framework */,
 				BD2FEC7019109B9500C44ACB /* CoreData.framework */,
 				BD2FEC6E19109B8800C44ACB /* libicucore.dylib */,
 				BD2FEC6A191098F100C44ACB /* AssetsLibrary.framework */,

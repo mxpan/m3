@@ -22,6 +22,7 @@
 
 #import <FacebookSDK/FacebookSDK.h>
 #import "PFUser+SilentFilm.h"
+#import <Social/Social.h>
 
 @interface M3ThreadViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, FBFriendPickerDelegate>
 
@@ -218,16 +219,22 @@
     videoCompiler.outputURL = [M3AppDelegate fileURLForTemporaryFileNamed:@"final-movie.mov"];
     videoCompiler.endCard = self.endCard;
     
-    M3ThreadViewController *weakSelf = self;
     [self.thread compileFullVideo:videoCompiler withBlock:^(PFObject *object, NSError *error) {
         [progressHud hide:YES];
         if ([object isKindOfClass:[M3Thread class]]) {
             M3Thread *thread = (M3Thread*)object;
             if (thread.finalizedFilm) {
-                [UIAlertView bk_showAlertViewWithTitle:@"Film Complete!" message:nil cancelButtonTitle:@"Okay" otherButtonTitles:@[@"Open in Safari"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                [UIAlertView bk_showAlertViewWithTitle:@"Film Complete!" message:nil cancelButtonTitle:@"Okay" otherButtonTitles:@[@"Open in Safari", @"Share to Facebook"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                    NSURL *videoUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://mxpan.github.io/m3/silent_film/index.html?film=%@", thread.objectId]];
+                    
                     if (buttonIndex == 1) {
-                        NSURL *videoUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://mxpan.github.io/m3/silent_film/index.html?film=%@", thread.objectId]];
                         [[UIApplication sharedApplication] openURL:videoUrl];
+                    } else if (buttonIndex == 2) {
+                        SLComposeViewController *compose = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+                        [compose setInitialText:[NSString stringWithFormat:@"I just made this Silent Film: \"%@\"", self.thread.title]];
+                        [compose addURL:videoUrl];
+                        [compose addImage:self.thread.finalizedThumbnail];
+                        [self presentViewController:compose animated:YES completion:nil];
                     }
                 }];
             }
