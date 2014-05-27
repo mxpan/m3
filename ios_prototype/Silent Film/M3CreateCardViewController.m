@@ -36,7 +36,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    if (!self.isTitleCard) [self.screenTitle setText:@"Create Ending Message"];
+    if (!self.isTitleCard){
+        [self.screenTitle setText:@"Create Ending Message"];
+        [self.screenTitle setFont:[UIFont fontWithName:@"System" size:20.0]];
+    }
 }
 
 - (IBAction)userDoneEnteringText:(UITextField *)sender {
