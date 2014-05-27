@@ -20,10 +20,10 @@
 @property UIImage *finalizedThumbnail;
 
 + (void)fetchThreadsForCurrentUserWithCallback:(void (^)(NSArray*))callback;
-- (void)addPostWithVideo:(M3Video*)video withBlock:(PFObjectResultBlock)block progressBlock:(PFProgressBlock)progressBlock;
+- (void)addPostWithVideo:(M3Video*)video title:(NSString*)title withBlock:(PFObjectResultBlock)block progressBlock:(PFProgressBlock)progressBlock;
 - (void)fetchPostsWithCallback:(void (^)(NSArray *newPosts))callback;
 - (PFUser*)otherUser;
 - (void)compileFullVideo:(M3CompiledVideo*)videoCompiler withBlock:(PFObjectResultBlock)block progressBlock:(PFProgressBlock)progressBlock;
-
+- (NSURL*)webpageURL;
 
 @end

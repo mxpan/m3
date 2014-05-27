@@ -14,6 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *cardLabel;
 @property (weak, nonatomic) IBOutlet UITextField *inputTextField;
+@property (weak, nonatomic) IBOutlet UITextView *inputTextView;
 
 @property (weak, nonatomic) IBOutlet UIButton *dontCreateCardButton;
 @property (weak, nonatomic) IBOutlet UIButton *createCardButton;
@@ -73,6 +74,11 @@
     UIGraphicsEndImageContext();
     
     return viewImage;
+}
+
+- (NSString *)cardTitle
+{
+    return self.inputTextField.text;
 }
 
 - (void) saveImage:(UIImage *)image {

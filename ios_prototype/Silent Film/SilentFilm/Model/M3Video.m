@@ -40,9 +40,11 @@
     [M3AssetRenderer convertAsset:self.video toLowQualityWithCallback:^(AVAsset *asset) {
         AVMutableComposition *composition = [AVMutableComposition composition];
         AVMutableCompositionTrack *videoCompositionTrack = [composition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
+        AVMutableCompositionTrack *audioCompositionTrack = [composition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
         
         AVAssetTrack *firstVideoAssetTrack;
         AVAssetTrack *secondVideoAssetTrack;
+        AVAssetTrack *audioTrack;
         
         if (self.titleCard){
             firstVideoAssetTrack = [[self.titleCardAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
@@ -50,8 +52,7 @@
         } else {
             firstVideoAssetTrack = [[asset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
         }
-       
-        //                AVAssetTrack *thirdVideoAssetTrack = [[endCardAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
+        audioTrack = [[asset tracksWithMediaType:AVMediaTypeAudio] firstObject];
         
         CGSize finalVideoSize;
         
@@ -70,12 +71,16 @@
         }
         
         CMTime videoSwitch = firstVideoAssetTrack.timeRange.duration;
-        //                CMTime endSwitch = CMTimeAdd(videoSwitch, secondVideoAssetTrack.timeRange.duration);
         
         [videoCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, firstVideoAssetTrack.timeRange.duration) ofTrack:firstVideoAssetTrack atTime:kCMTimeZero error:nil];
         
-        if (self.titleCard) [videoCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, secondVideoAssetTrack.timeRange.duration) ofTrack:secondVideoAssetTrack atTime:videoSwitch error:nil];
-        //                [videoCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, thirdVideoAssetTrack.timeRange.duration) ofTrack:thirdVideoAssetTrack atTime:endSwitch error:nil];
+        if (self.titleCard) {
+            [videoCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, secondVideoAssetTrack.timeRange.duration) ofTrack:secondVideoAssetTrack atTime:videoSwitch error:nil];
+            [audioCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, audioTrack.timeRange.duration) ofTrack:audioTrack atTime:videoSwitch error:nil];
+        } else {
+            [audioCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, audioTrack.timeRange.duration) ofTrack:audioTrack atTime:kCMTimeZero error:nil];
+        }
+    
         
         AVMutableVideoCompositionInstruction *firstVideoCompositionInstruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
         AVMutableVideoCompositionInstruction *secondVideoCompositionInstruction;
@@ -88,12 +93,14 @@
         AVMutableVideoCompositionLayerInstruction *secondVideoLayerInstruction;
         if (self.titleCard) secondVideoLayerInstruction = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:videoCompositionTrack];
         
-//        [firstVideoLayerInstruction setTransform:CGAffineTransformMakeScale(xScale, yScale) atTime:kCMTimeZero];
         
         CGAffineTransform rotate = CGAffineTransformMakeRotation(DEGREES_RADIANS(90));
         CGAffineTransform translate = CGAffineTransformMakeTranslation(finalVideoSize.width, 0);
-        if (self.titleCard) [secondVideoLayerInstruction setTransform:CGAffineTransformConcat(rotate, translate) atTime:firstVideoAssetTrack.timeRange.duration];
-        else [firstVideoLayerInstruction setTransform:CGAffineTransformConcat(rotate, translate) atTime:kCMTimeZero];
+        if (self.titleCard) {
+            [secondVideoLayerInstruction setTransform:CGAffineTransformConcat(rotate, translate) atTime:firstVideoAssetTrack.timeRange.duration];
+        } else {
+            [firstVideoLayerInstruction setTransform:CGAffineTransformConcat(rotate, translate) atTime:kCMTimeZero];
+        }
         
         firstVideoCompositionInstruction.layerInstructions = @[firstVideoLayerInstruction];
         if (self.titleCard) secondVideoCompositionInstruction.layerInstructions = @[secondVideoLayerInstruction];

@@ -32,6 +32,12 @@
 @property UIImage *endCard;
 @property NSURL *outputFileURL;
 @property UIRefreshControl *refreshControl;
+@property FBFriendPickerViewController *friendPicker;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *compileButton;
+
+
+@property NSTimer *refreshTimer;
+@property NSString *currentTitle;
 
 @end
 
@@ -42,22 +48,9 @@
     self = [super init];
     if (self) {
         self.thread = thread;
-        UIBarButtonItem *button = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAdd handler:^(id sender) {
+        UIBarButtonItem *button = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"video-icon.png"] style:UIBarButtonItemStylePlain handler:^(id sender) {
+//        UIBarButtonItem *button = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAdd handler:^(id sender) {
             UIActionSheet *actionSheet = [[UIActionSheet alloc] bk_initWithTitle:@"Add..."];
-            [actionSheet bk_addButtonWithTitle:@"A user" handler:^{
-                [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                    NSString *facebookId = result[@"id"];
-                    
-                    FBFriendPickerViewController *friendPicker = [FBFriendPickerViewController new];
-                    friendPicker.delegate = self;
-                    friendPicker.userID = facebookId;
-                    friendPicker.session = [PFFacebookUtils session];
-                    [friendPicker loadData];
-                    
-                    [self presentViewController:friendPicker animated:YES completion:nil];
-                    
-                }];
-            }];
             
             [actionSheet bk_addButtonWithTitle:@"A video" handler:^{
                 [self showTitleCardScreen];
@@ -71,6 +64,22 @@
         }];
         [self.navigationItem setRightBarButtonItem:button];
         self.title = self.thread.title;
+        
+        
+        self.friendPicker = [FBFriendPickerViewController new];
+
+        [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+            NSString *facebookId = result[@"id"];
+            
+            self.friendPicker.delegate = self;
+            self.friendPicker.userID = facebookId;
+            self.friendPicker.session = [PFFacebookUtils session];
+            [self.friendPicker loadData];
+        }];
+        
+        self.refreshTimer = [NSTimer bk_scheduledTimerWithTimeInterval:2.0 block:^(NSTimer *timer) {
+            [self refresh];
+        } repeats:YES];
     }
     return self;
 }
@@ -80,11 +89,24 @@
     [self.tableView reloadData];
     [self.thread fetchPostsWithCallback:^(NSArray *newPosts) {
         if (newPosts.count) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"New Message!" message:nil delegate:nil cancelButtonTitle:@"Okay!" otherButtonTitles: nil];
-            [alertView show];
+            BOOL newPostNotFromMe = NO;
+            for (M3Post *post in newPosts) {
+                if (![post.user isEqual:[PFUser currentUser]]) {
+                    newPostNotFromMe = YES;
+                }
+            }
+            if (newPostNotFromMe) {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"New Message!" message:nil delegate:nil cancelButtonTitle:@"Okay!" otherButtonTitles: nil];
+                [alertView show];
+            }
         }
         [self.tableView reloadData];
+        [self.refreshControl endRefreshing];
     }];
+    [self.thread refreshInBackgroundWithBlock:nil];
+    if (self.thread.finalizedFilm) {
+        [self.compileButton setTitle:@"Recompile"];
+    }
 }
 
 - (void)viewDidLoad
@@ -92,7 +114,19 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    
+    self.refreshControl = [UIRefreshControl new];
+    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:self.refreshControl];
+    
     [self sortPostArray:self.thread.posts];
+    [self refresh];
+}
+
+- (void)dealloc
+{
+    [self.refreshTimer invalidate];
+    self.refreshTimer = nil;
 }
 
 - (void)showTitleCardScreen {
@@ -123,6 +157,7 @@
 {
     if (createCardViewController.isTitleCard) {
         self.titleCard = createCardViewController.image;
+        self.currentTitle = [createCardViewController cardTitle];
     } else {
         self.endCard = createCardViewController.image;
     }
@@ -161,12 +196,16 @@
     video.outputURL = [M3AppDelegate fileURLForTemporaryFileNamed:@"final-movie.mov"];
     
     M3ThreadViewController *weakSelf = self;
-    [self.thread addPostWithVideo:video withBlock:^(PFObject *object, NSError *error) {
+    [self.thread addPostWithVideo:video title:self.currentTitle withBlock:^(PFObject *object, NSError *error) {
         [progressHud hide:YES];
         if ([object isKindOfClass:[M3Post class]]) {
             M3Post *post = (M3Post*)object;
+            
+            weakSelf.currentTitle = nil;
+            
             [weakSelf.thread.posts insertObject:post atIndex:weakSelf.thread.posts.count];
-            [self sortPostArray:weakSelf.thread.posts];
+            [weakSelf sortPostArray:weakSelf.thread.posts];
+            
             [weakSelf.tableView reloadData];
             [weakSelf.thread refreshInBackgroundWithBlock:^(PFObject *object, NSError *error) {
                 [weakSelf.tableView reloadData];
@@ -224,8 +263,9 @@
         if ([object isKindOfClass:[M3Thread class]]) {
             M3Thread *thread = (M3Thread*)object;
             if (thread.finalizedFilm) {
+                [self refresh];
                 [UIAlertView bk_showAlertViewWithTitle:@"Film Complete!" message:nil cancelButtonTitle:@"Okay" otherButtonTitles:@[@"Open in Safari", @"Share to Facebook"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                    NSURL *videoUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://mxpan.github.io/m3/silent_film/index.html?film=%@", thread.objectId]];
+                    NSURL *videoUrl = thread.webpageURL;
                     
                     if (buttonIndex == 1) {
                         [[UIApplication sharedApplication] openURL:videoUrl];
@@ -269,7 +309,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return self.thread.users.count;
+        return self.thread.users.count + 1;
     } else {
         return self.thread.posts.count;
     }
@@ -280,7 +320,7 @@
     if (section == 0) {
         return @"Users";
     } else {
-        return @"Posts";
+        return @"Scenes";
     }
 }
 
@@ -299,11 +339,16 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
  
     if (indexPath.section == 0) {
-        PFUser *user = [self.thread.users objectAtIndex:indexPath.row];
-        cell.textLabel.text = user.nickname;
+        if (indexPath.row < self.thread.users.count) {
+            PFUser *user = [self.thread.users objectAtIndex:indexPath.row];
+            cell.textLabel.text = user.nickname;
+        } else {
+            cell.textLabel.text = @"Add user...";
+        }
+
     } else if (indexPath.section == 1) {
         M3Post *post = [self.thread.posts objectAtIndex:indexPath.row];
-        cell.textLabel.text = [NSString stringWithFormat:@"Video by %@", post.user.nickname];
+        cell.textLabel.text = [NSString stringWithFormat:@"%d. \"%@\" by %@", indexPath.row+1, post.title, post.user.nickname];
         NSDateFormatter *format = [[NSDateFormatter alloc] init];
         [format setDateFormat:@"MMM dd, yyyy hh:mm a"];
         NSString *dateString = [format stringFromDate:post.createdAt];
@@ -319,16 +364,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 1) {
+    if (indexPath.section == 0) {
+        if (indexPath.row == self.thread.users.count) {
+            [self presentViewController:self.friendPicker animated:YES completion:nil];
+        }
+    } else if (indexPath.section == 1) {
         M3Post *post = [self.thread.posts objectAtIndex:indexPath.row];
         NSURL *videoUrl = [NSURL URLWithString:post.video.url];
         MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:videoUrl];
-        
-        //    [[NSNotificationCenter defaultCenter] removeObserver:moviePlayer
-        //                                                    name: MPMoviePlayerPlaybackDidFinishNotification
-        //                                                  object:moviePlayer.moviePlayer];
-        //
-        
         [self presentMoviePlayerViewControllerAnimated:moviePlayer];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -386,6 +429,38 @@
     }];
     
 }
+
+- (BOOL)checkForCompiledVideo
+{
+    if (!self.thread.finalizedFilm) {
+        [UIAlertView bk_showAlertViewWithTitle:@"You must compile the video first!" message:@"Press Compile at the bottom left of this screen" cancelButtonTitle:@"Okay" otherButtonTitles:nil handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            
+        }];
+        return NO;
+    }
+    return YES;
+}
+
+- (IBAction)watchPressed:(id)sender {
+    if (![self checkForCompiledVideo]) {
+        return;
+    }
+    NSURL *videoUrl = [NSURL URLWithString:self.thread.finalizedFilm.url];
+    MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:videoUrl];
+    [self presentMoviePlayerViewControllerAnimated:moviePlayer];
+}
+
+- (IBAction)shareButtonPressed:(id)sender
+{
+    if (![self checkForCompiledVideo]) {
+        return;
+    }
+    
+    
+    UIActivityViewController *activity = [[UIActivityViewController alloc] initWithActivityItems:@[@"Check out this new video I made!", self.thread.webpageURL] applicationActivities:nil];
+    [self presentViewController:activity animated:YES completion:nil];
+}
+
 
 @end
 
