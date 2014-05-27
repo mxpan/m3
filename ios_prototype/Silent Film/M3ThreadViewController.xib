@@ -15,11 +15,11 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9WV-Xd-FNO">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9WV-Xd-FNO">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </tableView>
-                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aAR-ga-qcD">
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aAR-ga-qcD">
                     <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <items>
@@ -32,6 +32,15 @@
                 </toolbar>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="aAR-ga-qcD" secondAttribute="bottom" id="716-l6-npr"/>
+                <constraint firstItem="aAR-ga-qcD" firstAttribute="trailing" secondItem="9WV-Xd-FNO" secondAttribute="trailing" id="FAF-ko-FTd"/>
+                <constraint firstItem="9WV-Xd-FNO" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="JHk-7W-855"/>
+                <constraint firstItem="aAR-ga-qcD" firstAttribute="top" secondItem="9WV-Xd-FNO" secondAttribute="bottom" id="OJA-ib-5hV"/>
+                <constraint firstItem="9WV-Xd-FNO" firstAttribute="leading" secondItem="aAR-ga-qcD" secondAttribute="leading" id="bsQ-n7-gh8"/>
+                <constraint firstItem="9WV-Xd-FNO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="kG5-Gh-D0B"/>
+                <constraint firstAttribute="trailing" secondItem="9WV-Xd-FNO" secondAttribute="trailing" id="nq1-hP-MXi"/>
+            </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>

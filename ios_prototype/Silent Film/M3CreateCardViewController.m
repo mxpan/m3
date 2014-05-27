@@ -36,7 +36,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    if (!self.isTitleCard) [self.screenTitle setText:@"Create Ending Card"];
+    if (!self.isTitleCard) [self.screenTitle setText:@"Create Ending Message"];
 }
 
 - (IBAction)userDoneEnteringText:(UITextField *)sender {

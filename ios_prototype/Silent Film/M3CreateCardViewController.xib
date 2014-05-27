@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -20,19 +20,30 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Create Title Card" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jkL-ma-cuX">
-                    <rect key="frame" x="58" y="20" width="204" height="36"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="balloons_with_background.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="3mA-Km-g9s">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="411"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" name="SavoyeLetPlain" family="Savoye LET" pointSize="32"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="411" id="F1T-G7-7z5"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jkL-ma-cuX">
+                    <rect key="frame" x="58" y="20" width="204" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dXb-sL-eqc">
-                    <rect key="frame" x="20" y="532" width="41" height="30"/>
+                    <rect key="frame" x="20" y="526" width="51" height="36"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" name="SavoyeLetPlain" family="Savoye LET" pointSize="25"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="51" id="3XG-V8-xPo"/>
+                        <constraint firstAttribute="height" constant="30" id="pd7-ff-c8h"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <state key="normal" title="Skip">
-                        <color key="titleColor" red="0.72375239160000004" green="0.1042488174" blue="0.20038939350000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -40,25 +51,18 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iYa-c1-miM">
-                    <rect key="frame" x="217" y="532" width="83" height="30"/>
+                    <rect key="frame" x="156" y="526" width="144" height="36"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="83" id="xoK-E8-ajp"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="SavoyeLetPlain" family="Savoye LET" pointSize="25"/>
-                    <state key="normal" title="Create Card">
-                        <color key="titleColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <state key="normal" title="Create Message">
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="createCard:" destination="-1" eventType="touchUpInside" id="mku-cv-qiU"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="silent movie card portrait.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="3mA-Km-g9s">
-                    <rect key="frame" x="20" y="54" width="280" height="460"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="rDj-P8-9Mr">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="rDj-P8-9Mr">
                     <rect key="frame" x="20" y="269" width="280" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -67,56 +71,58 @@
                         <action selector="userDoneEnteringText:" destination="-1" eventType="editingDidEndOnExit" id="CVT-iz-aSQ"/>
                     </connections>
                 </textField>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="bnR-Oo-beu">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="bnR-Oo-beu">
                     <rect key="frame" x="20" y="124" width="280" height="319"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="319" id="SOr-2y-HrV"/>
+                        <constraint firstAttribute="height" constant="319" id="vaH-UT-Pqt"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="SavoyeLetPlain" family="Savoye LET" pointSize="45"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tpo-fm-y3k">
-                    <rect key="frame" x="12" y="20" width="25" height="16"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tpo-fm-y3k">
+                    <rect key="frame" x="20" y="20" width="25" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="b1d-iC-2a6"/>
+                        <constraint firstAttribute="width" constant="25" id="gSG-Il-R4h"/>
+                    </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="30"/>
                     <state key="normal" title="X">
-                        <color key="titleColor" red="0.96078431610000004" green="0.96078431610000004" blue="0.94901961089999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleColor" red="0.93283641579999999" green="0.0" blue="0.01012221386" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="cancelVideo:" destination="-1" eventType="touchUpInside" id="Kb9-eP-OXT"/>
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+            <color key="backgroundColor" red="0.092732359194510727" green="0.44552061010734234" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="3mA-Km-g9s" firstAttribute="leading" secondItem="dXb-sL-eqc" secondAttribute="leading" id="1D9-bh-dKv"/>
-                <constraint firstItem="jkL-ma-cuX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="58" id="2Eu-c1-Ren"/>
-                <constraint firstAttribute="trailing" secondItem="3mA-Km-g9s" secondAttribute="trailing" constant="20" symbolic="YES" id="EIr-ZU-Lvv"/>
-                <constraint firstItem="jkL-ma-cuX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" symbolic="YES" id="JMv-Ft-I5D"/>
-                <constraint firstItem="iYa-c1-miM" firstAttribute="top" secondItem="3mA-Km-g9s" secondAttribute="bottom" constant="18" id="MWw-Nv-PkR"/>
-                <constraint firstItem="3mA-Km-g9s" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" symbolic="YES" id="Nn3-Y8-Jew"/>
-                <constraint firstItem="bnR-Oo-beu" firstAttribute="top" secondItem="jkL-ma-cuX" secondAttribute="bottom" constant="68" id="Oca-z3-D9Z"/>
-                <constraint firstItem="3mA-Km-g9s" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="54" id="P05-eE-zOC"/>
-                <constraint firstItem="iYa-c1-miM" firstAttribute="leading" secondItem="dXb-sL-eqc" secondAttribute="trailing" constant="72" id="QVW-4w-yJO"/>
-                <constraint firstItem="iYa-c1-miM" firstAttribute="bottom" secondItem="dXb-sL-eqc" secondAttribute="bottom" id="VeC-F6-HCx"/>
-                <constraint firstItem="3mA-Km-g9s" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="VtQ-ao-rsv"/>
-                <constraint firstItem="iYa-c1-miM" firstAttribute="trailing" secondItem="rDj-P8-9Mr" secondAttribute="trailing" id="YWZ-sz-rUm"/>
-                <constraint firstItem="bnR-Oo-beu" firstAttribute="leading" secondItem="rDj-P8-9Mr" secondAttribute="leading" id="Z3A-hj-1qi"/>
-                <constraint firstItem="3mA-Km-g9s" firstAttribute="centerX" secondItem="jkL-ma-cuX" secondAttribute="centerX" id="djt-Eh-D9O"/>
-                <constraint firstItem="iYa-c1-miM" firstAttribute="top" secondItem="dXb-sL-eqc" secondAttribute="top" id="mAG-Zm-dtN"/>
-                <constraint firstItem="rDj-P8-9Mr" firstAttribute="leading" secondItem="dXb-sL-eqc" secondAttribute="leading" id="mvj-I7-e0b"/>
-                <constraint firstItem="rDj-P8-9Mr" firstAttribute="centerY" secondItem="3mA-Km-g9s" secondAttribute="centerY" id="nln-hG-oXW"/>
-                <constraint firstAttribute="bottom" secondItem="iYa-c1-miM" secondAttribute="bottom" constant="6" id="rpF-zy-zwZ"/>
-                <constraint firstItem="bnR-Oo-beu" firstAttribute="trailing" secondItem="rDj-P8-9Mr" secondAttribute="trailing" id="wHS-LS-sdz"/>
-                <constraint firstItem="iYa-c1-miM" firstAttribute="trailing" secondItem="3mA-Km-g9s" secondAttribute="trailing" id="z5g-48-NNx"/>
+                <constraint firstItem="3mA-Km-g9s" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="6BE-mQ-FVP"/>
+                <constraint firstItem="iYa-c1-miM" firstAttribute="trailing" secondItem="rDj-P8-9Mr" secondAttribute="trailing" id="6fV-k4-0Tu"/>
+                <constraint firstAttribute="bottom" secondItem="dXb-sL-eqc" secondAttribute="bottom" constant="6" id="7sM-Sk-D12"/>
+                <constraint firstItem="3mA-Km-g9s" firstAttribute="centerX" secondItem="jkL-ma-cuX" secondAttribute="centerX" id="8hd-gT-xIR"/>
+                <constraint firstItem="bnR-Oo-beu" firstAttribute="trailing" secondItem="rDj-P8-9Mr" secondAttribute="trailing" id="9Go-ku-BFp"/>
+                <constraint firstItem="3mA-Km-g9s" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="KU4-d5-Gjx"/>
+                <constraint firstItem="tpo-fm-y3k" firstAttribute="top" secondItem="jkL-ma-cuX" secondAttribute="top" id="M2z-K8-R8B"/>
+                <constraint firstItem="jkL-ma-cuX" firstAttribute="centerX" secondItem="rDj-P8-9Mr" secondAttribute="centerX" id="Mil-v3-F5h"/>
+                <constraint firstItem="jkL-ma-cuX" firstAttribute="leading" secondItem="tpo-fm-y3k" secondAttribute="trailing" constant="13" id="QjN-h3-g5B"/>
+                <constraint firstItem="dXb-sL-eqc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" symbolic="YES" id="Qk5-RK-4Kc"/>
+                <constraint firstItem="dXb-sL-eqc" firstAttribute="leading" secondItem="rDj-P8-9Mr" secondAttribute="leading" id="R7t-NL-LTV"/>
+                <constraint firstAttribute="trailing" secondItem="iYa-c1-miM" secondAttribute="trailing" constant="20" symbolic="YES" id="TD1-xi-opn"/>
+                <constraint firstItem="bnR-Oo-beu" firstAttribute="top" secondItem="jkL-ma-cuX" secondAttribute="bottom" constant="74" id="a5s-a4-1pG"/>
+                <constraint firstItem="tpo-fm-y3k" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" symbolic="YES" id="dDE-Q8-zDl"/>
+                <constraint firstItem="iYa-c1-miM" firstAttribute="baseline" secondItem="dXb-sL-eqc" secondAttribute="baseline" id="loE-h8-5Ho"/>
+                <constraint firstItem="iYa-c1-miM" firstAttribute="top" secondItem="bnR-Oo-beu" secondAttribute="bottom" constant="83" id="q6M-JU-AHE"/>
+                <constraint firstItem="bnR-Oo-beu" firstAttribute="leading" secondItem="rDj-P8-9Mr" secondAttribute="leading" id="yEU-Y9-BcJ"/>
+                <constraint firstItem="tpo-fm-y3k" firstAttribute="leading" secondItem="rDj-P8-9Mr" secondAttribute="leading" id="yhb-Xq-8ES"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>
     <resources>
-        <image name="silent movie card portrait.jpg" width="498" height="1053"/>
+        <image name="balloons_with_background.jpg" width="2453" height="2646"/>
     </resources>
 </document>

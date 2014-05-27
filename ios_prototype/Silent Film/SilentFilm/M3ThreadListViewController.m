@@ -27,7 +27,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"Films";
+        self.title = @"Video Cards";
         
         UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStylePlain target:self action:@selector(logoutButtonPressed)];
         [self.navigationItem setLeftBarButtonItem:logoutButton];
@@ -37,7 +37,7 @@
 
 - (IBAction)createThreadButtonPressed:(id)sender
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Start new film" message:@"Title your film:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Start new video card" message:@"Title your Card:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
     alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     alertView.tag = 2;
     [alertView show];
