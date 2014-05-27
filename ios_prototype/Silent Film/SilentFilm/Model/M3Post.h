@@ -14,5 +14,6 @@
 @property M3Thread *thread;
 @property PFUser *user;
 @property PFFile *video;
+@property NSString *title;
 
 @end

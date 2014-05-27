@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="M3ThreadViewController">
             <connections>
+                <outlet property="compileButton" destination="2DX-S2-saP" id="6OP-zG-F9s"/>
                 <outlet property="tableView" destination="9WV-Xd-FNO" id="XGw-yi-reY"/>
                 <outlet property="view" destination="iN0-l3-epB" id="xQp-1C-1d7"/>
             </connections>
@@ -18,14 +19,27 @@
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9WV-Xd-FNO">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aAR-ga-qcD">
                     <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <items>
-                        <barButtonItem title="Export Compiled Film" width="303" id="2DX-S2-saP">
+                        <barButtonItem title="Compile" id="2DX-S2-saP">
                             <connections>
                                 <action selector="createFullMovie:" destination="-1" id="8tH-Ix-fLC"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="zZ1-N0-5Sw"/>
+                        <barButtonItem title="Watch" id="RU8-wb-PUu">
+                            <connections>
+                                <action selector="watchPressed:" destination="-1" id="dbH-9f-7iW"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="iBj-rv-Zhx"/>
+                        <barButtonItem title="Share" id="fGW-zv-WMz">
+                            <connections>
+                                <action selector="shareButtonPressed:" destination="-1" id="D9E-xi-QGc"/>
                             </connections>
                         </barButtonItem>
                     </items>

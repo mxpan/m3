@@ -44,7 +44,7 @@
     }];
 }
 
-- (void)addPostWithVideo:(M3Video*)video withBlock:(PFObjectResultBlock)block progressBlock:(PFProgressBlock)progressBlock
+- (void)addPostWithVideo:(M3Video*)video title:(NSString*)title withBlock:(PFObjectResultBlock)block progressBlock:(PFProgressBlock)progressBlock
 {
     [video exportWithCallback:^{
         NSData *data = [NSData dataWithContentsOfURL:video.outputURL];
@@ -54,15 +54,21 @@
             post.user = [PFUser currentUser];
             post.video = videoFile;
             post.thread = self;
+            post.title = title;
             [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                PFPush *push = [[PFPush alloc] init];
-                [push setMessage:[NSString stringWithFormat:@"New video from %@!", post.user.nickname]];
-                [push setChannel:[self.otherUser channelName]];
-                [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    if (block) {
-                        block(post, nil);
+                for (PFUser *user in self.users) {
+                    if (![user isEqual:[PFUser currentUser]]) {
+                        PFPush *push = [[PFPush alloc] init];
+                        [push setMessage:[NSString stringWithFormat:@"New video from %@!", post.user.nickname]];
+                        [push setChannel:[user channelName]];
+                        [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                            
+                        }];
                     }
-                }];
+                }
+                if (block) {
+                    block(post, nil);
+                }
             }];
         } progressBlock:progressBlock];
     }];
@@ -136,6 +142,11 @@
         }
     }
     return nil;
+}
+
+- (NSURL*)webpageURL
+{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"http://mxpan.github.io/m3/silent_film/index.html?film=%@", self.objectId]];
 }
 
 @end

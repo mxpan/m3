@@ -40,6 +40,11 @@
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Start new video card" message:@"Title your Card:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
     alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     alertView.tag = 2;
+    
+    UITextField *textField = [alertView textFieldAtIndex:0];
+    textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+//    textField.autocorrectionType = UITextautocorr
+    
     [alertView show];
 }
 
@@ -63,6 +68,7 @@
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Are you sure you want to logout?" message:[NSString stringWithFormat:@""] delegate:self cancelButtonTitle:@"Nevermind" otherButtonTitles:@"Yes!", nil];
     alertView.tag = 1;
+    
     [alertView show];
 }
 
@@ -85,31 +91,6 @@
             [[M3LoginManager sharedLoginManager] logoutWithCallback:nil];
         }
     } else if (alertView.tag == 2 && buttonIndex == 1) {
-        //        NSString *username = [[[alertView textFieldAtIndex:0] text] lowercaseString];
-        //        if (username.length) {
-        //            PFQuery *query = [PFUser query];
-        //            [query whereKey:@"nickname" equalTo:username];
-        //            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        //                if (objects.count) {
-        //                    PFUser *otherUser = [objects firstObject];
-        //                    if (![otherUser isEqual:[PFUser currentUser]]) {
-        //                        M3Thread *thread = [M3Thread new];
-        //                        thread.users = @[otherUser, [PFUser currentUser]];
-        //                        [self.threads addObject:thread];
-        //                        [thread saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        //                            [self refresh];
-        //                            PFPush *push = [[PFPush alloc] init];
-        //                            [push setChannel:[otherUser channelNameForNewThreads]];
-        //                            [push setMessage:[NSString stringWithFormat:@"%@ has started a thread with you!", [PFUser currentUser][@"nickname"]]];
-        //                            [push sendPushInBackground];
-        //                        }];
-        //                    }
-        //                } else {
-        //                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"User Not Found" message:@"Try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        //                    [alertView show];
-        //                }
-        //            }];
-        //        }
         NSString *title = [[alertView textFieldAtIndex:0] text];
         M3Thread *thread = [M3Thread new];
         thread.users = @[[PFUser currentUser]];

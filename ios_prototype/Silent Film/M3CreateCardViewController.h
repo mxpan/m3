@@ -15,4 +15,6 @@
 @property (weak) M3ThreadViewController *threadViewController;
 @property (readonly) UIImage *image;
 
+- (NSString*)cardTitle;
+
 @end
