@@ -12,12 +12,16 @@
 #import "M3LoginManager.h"
 #import "PFUser+SilentFilm.h"
 #import <UIAlertView+BlocksKit.h>
+#import <MBProgressHUD.h>
 
-@interface M3ThreadListViewController () <UIAlertViewDelegate>
+@interface M3ThreadListViewController () <UIAlertViewDelegate, FBFriendPickerDelegate>
 
 @property NSMutableArray *threads;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property UIRefreshControl *refreshControl;
+
+@property FBFriendPickerViewController *friendPicker;
+@property NSString *currentTitle;
 
 @end
 
@@ -31,6 +35,17 @@
         
         UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStylePlain target:self action:@selector(logoutButtonPressed)];
         [self.navigationItem setLeftBarButtonItem:logoutButton];
+        
+        self.friendPicker = [FBFriendPickerViewController new];
+        
+        [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+            NSString *facebookId = result[@"id"];
+            
+            self.friendPicker.delegate = self;
+            self.friendPicker.userID = facebookId;
+            self.friendPicker.session = [PFFacebookUtils session];
+            [self.friendPicker loadData];
+        }];
     }
     return self;
 }
@@ -43,7 +58,6 @@
     
     UITextField *textField = [alertView textFieldAtIndex:0];
     textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-//    textField.autocorrectionType = UITextautocorr
     
     [alertView show];
 }
@@ -92,13 +106,8 @@
         }
     } else if (alertView.tag == 2 && buttonIndex == 1) {
         NSString *title = [[alertView textFieldAtIndex:0] text];
-        M3Thread *thread = [M3Thread new];
-        thread.users = @[[PFUser currentUser]];
-        thread.title = title;
-        [self.threads addObject:thread];
-        [thread saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            [self refresh];
-        }];
+        self.currentTitle = title;
+        [self presentViewController:self.friendPicker animated:YES completion:nil];
     }
 }
 
@@ -153,6 +162,54 @@
     M3ThreadViewController *threadVC = [[M3ThreadViewController alloc] initWithThread:thread];
     [self.navigationController pushViewController:threadVC animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}- (void)facebookViewControllerCancelWasPressed:(id)sender
+{
+    [sender dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)facebookViewControllerDoneWasPressed:(FBFriendPickerViewController*)picker
+{
+    
+
+    NSMutableArray *facebookIds = [NSMutableArray array];
+    for (id<FBGraphUser> user in [picker selection]) {
+        NSLog(@"User ID: %@", [user objectID]);
+        [facebookIds addObject:[user objectID]];
+    }
+
+    if (facebookIds.count) {
+        M3Thread *thread = [M3Thread new];
+        thread.users = @[[PFUser currentUser]];
+        thread.title = self.currentTitle;
+        [self.threads addObject:thread];
+        [thread saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            [self refresh];
+        }];
+        
+        [picker dismissViewControllerAnimated:YES completion:^{
+            MBProgressHUD *progress = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            
+            PFQuery *query = [PFUser query];
+            [query whereKey:@"facebookId" containedIn:[NSArray arrayWithArray:facebookIds]];
+            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                PFUser *otherUser = [objects firstObject];
+                
+                PFPush *push = [[PFPush alloc] init];
+                [push setChannel:[otherUser channelNameForNewThreads]];
+                [push setMessage:[NSString stringWithFormat:@"%@ has started a thread with you!", [PFUser currentUser].nickname]];
+                [push sendPushInBackground];
+                
+                thread.users = @[[PFUser currentUser], otherUser];
+                [thread saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    [self refresh];
+                    [progress hide:YES];
+                }];
+            }];
+        }];
+    } else {
+        [UIAlertView bk_showAlertViewWithTitle:@"Must include at least one friend!" message:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil handler:nil];
+    }
+    
 }
 
 

@@ -309,7 +309,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return self.thread.users.count + 1;
+        return self.thread.users.count;
     } else {
         return self.thread.posts.count;
     }
