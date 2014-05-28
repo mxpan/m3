@@ -37,6 +37,8 @@
 		BD54770E1916FFF700C64850 /* silent-film.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BD54770D1916FFF700C64850 /* silent-film.jpg */; };
 		BD547711191716DB00C64850 /* M3Video.m in Sources */ = {isa = PBXBuildFile; fileRef = BD547710191716DB00C64850 /* M3Video.m */; };
 		BD7418E7192B30A40001C642 /* M3ThreadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD7418E6192B30A40001C642 /* M3ThreadViewController.xib */; };
+		BD8A8E1019359D6B0051CF06 /* M3StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8A8E0E19359D6B0051CF06 /* M3StartViewController.m */; };
+		BD8A8E1119359D6B0051CF06 /* M3StartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD8A8E0F19359D6B0051CF06 /* M3StartViewController.xib */; };
 		BD99BC6E192C6F03003A03B3 /* M3ThreadListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD99BC6D192C6F03003A03B3 /* M3ThreadListViewController.xib */; };
 		BDB959FC190F67DF0092AD8F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDB959FB190F67DF0092AD8F /* Foundation.framework */; };
 		BDB959FE190F67DF0092AD8F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDB959FD190F67DF0092AD8F /* CoreGraphics.framework */; };
@@ -120,6 +122,9 @@
 		BD54770F191716DB00C64850 /* M3Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = M3Video.h; path = SilentFilm/Model/M3Video.h; sourceTree = "<group>"; };
 		BD547710191716DB00C64850 /* M3Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = M3Video.m; path = SilentFilm/Model/M3Video.m; sourceTree = "<group>"; };
 		BD7418E6192B30A40001C642 /* M3ThreadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = M3ThreadViewController.xib; sourceTree = "<group>"; };
+		BD8A8E0D19359D6B0051CF06 /* M3StartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3StartViewController.h; sourceTree = "<group>"; };
+		BD8A8E0E19359D6B0051CF06 /* M3StartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3StartViewController.m; sourceTree = "<group>"; };
+		BD8A8E0F19359D6B0051CF06 /* M3StartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = M3StartViewController.xib; sourceTree = "<group>"; };
 		BD99BC6D192C6F03003A03B3 /* M3ThreadListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = M3ThreadListViewController.xib; sourceTree = "<group>"; };
 		BDAEC1EE190F6F0C00B08C06 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		BDB959F8190F67DF0092AD8F /* Silent Film.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Silent Film.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -216,6 +221,9 @@
 				34A56DF71916F5CA00F12D84 /* M3CreateCardViewController.h */,
 				34A56DF81916F5CA00F12D84 /* M3CreateCardViewController.m */,
 				34A56DF91916F5CA00F12D84 /* M3CreateCardViewController.xib */,
+				BD8A8E0D19359D6B0051CF06 /* M3StartViewController.h */,
+				BD8A8E0E19359D6B0051CF06 /* M3StartViewController.m */,
+				BD8A8E0F19359D6B0051CF06 /* M3StartViewController.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -462,6 +470,7 @@
 				BD345E3419344846000FCDF3 /* video-icon.png in Resources */,
 				BD7418E7192B30A40001C642 /* M3ThreadViewController.xib in Resources */,
 				BD54770E1916FFF700C64850 /* silent-film.jpg in Resources */,
+				BD8A8E1119359D6B0051CF06 /* M3StartViewController.xib in Resources */,
 				BDB95A06190F67E00092AD8F /* InfoPlist.strings in Resources */,
 				BD99BC6E192C6F03003A03B3 /* M3ThreadListViewController.xib in Resources */,
 				34A56E03191701F700F12D84 /* silent movie card portrait.jpg in Resources */,
@@ -537,6 +546,7 @@
 				BD547711191716DB00C64850 /* M3Video.m in Sources */,
 				BDB95A39190F69280092AD8F /* M3LoginViewController.m in Sources */,
 				BD2FEC7A1910B6B800C44ACB /* PFUser+SilentFilm.m in Sources */,
+				BD8A8E1019359D6B0051CF06 /* M3StartViewController.m in Sources */,
 				BD2FEC48191056B300C44ACB /* M3Post.m in Sources */,
 				BDB95A35190F68DA0092AD8F /* M3MainViewController.m in Sources */,
 			);

@@ -14,7 +14,7 @@
 #import <Parse/PFObject+Subclass.h>
 #import <AVFoundation/AVFoundation.h>
 #import "PFUser+SilentFilm.h"
-
+#import <NSArray+BlocksKit.h>
 
 @implementation M3Thread
 
@@ -149,4 +149,28 @@
     return [NSURL URLWithString:[NSString stringWithFormat:@"http://mxpan.github.io/m3/silent_film/index.html?film=%@", self.objectId]];
 }
 
+- (NSArray *)freshPosts
+{
+    return [self.posts bk_select:^BOOL(M3Post *post) {
+        return post.state == kFresh;
+    }];
+}
+
+- (NSArray *)respondedPosts
+{
+    return [self.posts bk_select:^BOOL(M3Post *post) {
+        return post.state == kResponded;
+    }];
+}
+
+- (NSString *)displayTitle
+{
+    return [NSString stringWithFormat:@"\"%@\" (w/ %@)", self.title, self.otherUser.nickname];
+}
+
 @end
+
+
+
+
+

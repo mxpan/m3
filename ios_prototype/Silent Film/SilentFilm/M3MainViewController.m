@@ -38,6 +38,9 @@
         self.threadListNavigationController = [[M3NavigationController alloc] initWithRootViewController:self.threadListViewController];
         self.signUpViewController = [M3SignUpViewController new];
         
+        [self addChildViewController:self.threadListNavigationController];
+        [self addChildViewController:self.loginViewController];
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:M3UserUpdateNotification object:nil];
     }
     return self;

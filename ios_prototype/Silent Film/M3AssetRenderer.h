@@ -10,7 +10,7 @@
 
 @interface M3AssetRenderer : NSObject
 
-+ (void)getAssetForTitleCard:(UIImage*)titleCard withIndex:(NSInteger)index withCallback:(void (^)(AVAsset *asset))callback;
++ (void)getAssetForTitleCard:(UIImage*)titleCard withIndex:(NSInteger)index withCallback:(void (^)(AVAsset *asset, NSURL *url))callback;
 + (void)convertAsset:(AVAsset *)asset toLowQualityWithCallback:(void (^)(AVAsset *asset))callback;
 
 @end

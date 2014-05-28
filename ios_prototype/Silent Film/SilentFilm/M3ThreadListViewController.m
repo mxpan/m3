@@ -31,7 +31,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"Video Cards";
+        self.title = @"Challenge Threads";
         
         UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStylePlain target:self action:@selector(logoutButtonPressed)];
         [self.navigationItem setLeftBarButtonItem:logoutButton];
@@ -53,7 +53,7 @@
 
 - (IBAction)createThreadButtonPressed:(id)sender
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Start new video card" message:@"Title your Card:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Start new challenge thread" message:@"Title your thread:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
     alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     alertView.tag = 2;
     
@@ -144,12 +144,13 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
     
     if (self.threads.count) {
         M3Thread *thread = [self.threads objectAtIndex:indexPath.row];
         //        [[cell textLabel] setText:[NSString stringWithFormat:@"Thread with %@ (%@)", [[thread otherUser] objectForKey:@"nickname"], [thread objectId]]];
         cell.textLabel.text = thread.title;
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"with %@", thread.otherUser.nickname];
     }
     
     return cell;
@@ -200,7 +201,7 @@
                 
                 PFPush *push = [[PFPush alloc] init];
                 [push setChannel:[otherUser channelNameForNewThreads]];
-                [push setMessage:[NSString stringWithFormat:@"%@ has started a thread with you!", [PFUser currentUser].nickname]];
+                [push setMessage:[NSString stringWithFormat:@"%@ has started a challenge thread with you!", [PFUser currentUser].nickname]];
                 [push sendPushInBackground];
                 
                 thread.users = @[[PFUser currentUser], otherUser];

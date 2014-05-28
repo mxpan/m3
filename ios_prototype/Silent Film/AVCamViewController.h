@@ -50,6 +50,8 @@
 
 @interface AVCamViewController : UIViewController
 
+@property BOOL startRecording;
+
 @property (weak) M3ThreadViewController *threadViewController;
 @property UIImage * titleCard;
 

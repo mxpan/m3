@@ -14,8 +14,6 @@
 
 @interface M3Video ()
 
-    @property AVAsset *titleCardAsset;
-
 @end
 
 @implementation M3Video
@@ -27,7 +25,7 @@
     NSParameterAssert(self.outputURL);
     
     if (self.titleCard){
-        [M3AssetRenderer getAssetForTitleCard:self.titleCard withIndex:0 withCallback:^(AVAsset *titleCardAsset) {
+        [M3AssetRenderer getAssetForTitleCard:self.titleCard withIndex:0 withCallback:^(AVAsset *titleCardAsset, NSURL *url) {
             self.titleCardAsset = titleCardAsset;
         }];
     }
@@ -44,25 +42,25 @@
         
         AVAssetTrack *firstVideoAssetTrack;
         AVAssetTrack *secondVideoAssetTrack;
-        AVAssetTrack *audioTrack;
+//        AVAssetTrack *audioTrack;
         
-        if (self.titleCard){
+        if (self.titleCardAsset){
             firstVideoAssetTrack = [[self.titleCardAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
             secondVideoAssetTrack = [[asset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
         } else {
             firstVideoAssetTrack = [[asset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
         }
-        audioTrack = [[asset tracksWithMediaType:AVMediaTypeAudio] firstObject];
+//        audioTrack = [[asset tracksWithMediaType:AVMediaTypeAudio] firstObject];
         
         CGSize finalVideoSize;
         
-        if (self.titleCard) finalVideoSize = CGSizeMake(secondVideoAssetTrack.naturalSize.height, secondVideoAssetTrack.naturalSize.width);
+        if (self.titleCardAsset) finalVideoSize = CGSizeMake(secondVideoAssetTrack.naturalSize.height, secondVideoAssetTrack.naturalSize.width);
         else finalVideoSize = CGSizeMake(firstVideoAssetTrack.naturalSize.height, firstVideoAssetTrack.naturalSize.width);
         
         CGFloat xScale;
         CGFloat yScale;
         
-        if (self.titleCard){
+        if (self.titleCardAsset){
             xScale = finalVideoSize.width / firstVideoAssetTrack.naturalSize.width;
             yScale = finalVideoSize.height / firstVideoAssetTrack.naturalSize.height;
         } else {
@@ -74,39 +72,39 @@
         
         [videoCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, firstVideoAssetTrack.timeRange.duration) ofTrack:firstVideoAssetTrack atTime:kCMTimeZero error:nil];
         
-        if (self.titleCard) {
+        if (self.titleCardAsset) {
             [videoCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, secondVideoAssetTrack.timeRange.duration) ofTrack:secondVideoAssetTrack atTime:videoSwitch error:nil];
-            [audioCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, audioTrack.timeRange.duration) ofTrack:audioTrack atTime:videoSwitch error:nil];
+//            [audioCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, audioTrack.timeRange.duration) ofTrack:audioTrack atTime:videoSwitch error:nil];
         } else {
-            [audioCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, audioTrack.timeRange.duration) ofTrack:audioTrack atTime:kCMTimeZero error:nil];
+//            [audioCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, audioTrack.timeRange.duration) ofTrack:audioTrack atTime:kCMTimeZero error:nil];
         }
     
         
         AVMutableVideoCompositionInstruction *firstVideoCompositionInstruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
         AVMutableVideoCompositionInstruction *secondVideoCompositionInstruction;
-        if (self.titleCard) secondVideoCompositionInstruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
+        if (self.titleCardAsset) secondVideoCompositionInstruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
         
         firstVideoCompositionInstruction.timeRange = CMTimeRangeMake(kCMTimeZero, firstVideoAssetTrack.timeRange.duration);
-        if (self.titleCard) secondVideoCompositionInstruction.timeRange = CMTimeRangeMake(videoSwitch, secondVideoAssetTrack.timeRange.duration);
+        if (self.titleCardAsset) secondVideoCompositionInstruction.timeRange = CMTimeRangeMake(videoSwitch, secondVideoAssetTrack.timeRange.duration);
         
         AVMutableVideoCompositionLayerInstruction *firstVideoLayerInstruction = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:videoCompositionTrack];
         AVMutableVideoCompositionLayerInstruction *secondVideoLayerInstruction;
-        if (self.titleCard) secondVideoLayerInstruction = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:videoCompositionTrack];
+        if (self.titleCardAsset) secondVideoLayerInstruction = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:videoCompositionTrack];
         
         
         CGAffineTransform rotate = CGAffineTransformMakeRotation(DEGREES_RADIANS(90));
         CGAffineTransform translate = CGAffineTransformMakeTranslation(finalVideoSize.width, 0);
-        if (self.titleCard) {
+        if (self.titleCardAsset) {
             [secondVideoLayerInstruction setTransform:CGAffineTransformConcat(rotate, translate) atTime:firstVideoAssetTrack.timeRange.duration];
         } else {
             [firstVideoLayerInstruction setTransform:CGAffineTransformConcat(rotate, translate) atTime:kCMTimeZero];
         }
         
         firstVideoCompositionInstruction.layerInstructions = @[firstVideoLayerInstruction];
-        if (self.titleCard) secondVideoCompositionInstruction.layerInstructions = @[secondVideoLayerInstruction];
+        if (self.titleCardAsset) secondVideoCompositionInstruction.layerInstructions = @[secondVideoLayerInstruction];
         
         AVMutableVideoComposition *mutableVideoComposition = [AVMutableVideoComposition videoComposition];
-        if (self.titleCard) mutableVideoComposition.instructions = @[firstVideoCompositionInstruction, secondVideoCompositionInstruction];
+        if (self.titleCardAsset) mutableVideoComposition.instructions = @[firstVideoCompositionInstruction, secondVideoCompositionInstruction];
         else mutableVideoComposition.instructions = @[firstVideoCompositionInstruction];
         mutableVideoComposition.renderSize = finalVideoSize;
         mutableVideoComposition.frameDuration = CMTimeMake(1, 30);

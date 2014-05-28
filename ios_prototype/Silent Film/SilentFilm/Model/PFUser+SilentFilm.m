@@ -11,7 +11,7 @@
 
 @implementation PFUser (SilentFilm)
 
-@dynamic facebookId;
+@dynamic facebookId, nickname;
 
 - (NSString*)channelName
 {

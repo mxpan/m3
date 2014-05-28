@@ -27,7 +27,7 @@
     
     AVMutableComposition *composition = [AVMutableComposition composition];
     AVMutableCompositionTrack *videoCompositionTrack = [composition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
-    AVMutableCompositionTrack *audioCompositionTrack = [composition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+//    AVMutableCompositionTrack *audioCompositionTrack = [composition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
     
     NSMutableArray *mutableCompositionInstructionsArr = [[NSMutableArray alloc] init];
    
@@ -54,7 +54,7 @@
 
             AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:vidURL options:nil];
             AVAssetTrack *assetTrack = [[asset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
-            AVAssetTrack *audioTrack = [[asset tracksWithMediaType:AVMediaTypeAudio] firstObject];
+//            AVAssetTrack *audioTrack = [[asset tracksWithMediaType:AVMediaTypeAudio] firstObject];
             
             if (i==0){
                 finalVideoSize = CGSizeMake(assetTrack.naturalSize.height, assetTrack.naturalSize.width);
@@ -64,7 +64,7 @@
             
             
             [videoCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, assetTrack.timeRange.duration) ofTrack:assetTrack atTime:startTime error:nil];
-            [audioCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, audioTrack.timeRange.duration) ofTrack:audioTrack atTime:startTime error:nil];
+//            [audioCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, audioTrack.timeRange.duration) ofTrack:audioTrack atTime:startTime error:nil];
             
             AVMutableVideoCompositionInstruction *inst = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
             inst.timeRange = CMTimeRangeMake(startTime, assetTrack.timeRange.duration);
@@ -79,7 +79,7 @@
         }
         
         if (self.endCard){
-            [M3AssetRenderer getAssetForTitleCard:self.endCard withIndex:0 withCallback:^(AVAsset *endCardAsset) {
+            [M3AssetRenderer getAssetForTitleCard:self.endCard withIndex:0 withCallback:^(AVAsset *endCardAsset, NSURL *url) {
                 self.endCardAssetTrack = [[endCardAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
                 [videoCompositionTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, self.endCardAssetTrack.timeRange.duration) ofTrack:self.endCardAssetTrack atTime:startTime error:nil];
                 

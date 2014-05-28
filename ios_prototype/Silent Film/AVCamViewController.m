@@ -123,7 +123,7 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 		
 		NSError *error = nil;
 		
-		AVCaptureDevice *videoDevice = [AVCamViewController deviceWithMediaType:AVMediaTypeVideo preferringPosition:AVCaptureDevicePositionBack];
+		AVCaptureDevice *videoDevice = [AVCamViewController deviceWithMediaType:AVMediaTypeVideo preferringPosition:AVCaptureDevicePositionFront];
 		AVCaptureDeviceInput *videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:&error];
 		
 		if (error)
@@ -274,6 +274,9 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 				[[self cameraButton] setEnabled:YES];
 				[[self recordButton] setEnabled:YES];
 				[[self stillButton] setEnabled:YES];
+                if (![[self movieFileOutput] isRecording]) {
+                    [self toggleMovieRecording:nil];
+                }
 			}
 			else
 			{

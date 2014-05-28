@@ -9,11 +9,17 @@
 
 @class M3Thread, M3User;
 
+typedef enum {
+    kFresh,
+    kResponded
+} PostState;
+
 @interface M3Post : PFObject <PFSubclassing>
 
 @property M3Thread *thread;
 @property PFUser *user;
 @property PFFile *video;
 @property NSString *title;
+@property PostState state;
 
 @end

@@ -26,4 +26,9 @@
 - (void)compileFullVideo:(M3CompiledVideo*)videoCompiler withBlock:(PFObjectResultBlock)block progressBlock:(PFProgressBlock)progressBlock;
 - (NSURL*)webpageURL;
 
+- (NSArray *)freshPosts;
+- (NSArray *)respondedPosts;
+
+- (NSString *)displayTitle;
+
 @end
