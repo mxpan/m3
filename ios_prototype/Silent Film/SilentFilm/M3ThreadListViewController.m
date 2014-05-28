@@ -44,6 +44,7 @@
             self.friendPicker.delegate = self;
             self.friendPicker.userID = facebookId;
             self.friendPicker.session = [PFFacebookUtils session];
+            self.friendPicker.allowsMultipleSelection = NO;
             [self.friendPicker loadData];
         }];
     }
@@ -107,6 +108,7 @@
     } else if (alertView.tag == 2 && buttonIndex == 1) {
         NSString *title = [[alertView textFieldAtIndex:0] text];
         self.currentTitle = title;
+        [self.friendPicker clearSelection];
         [self presentViewController:self.friendPicker animated:YES completion:nil];
     }
 }
@@ -162,7 +164,9 @@
     M3ThreadViewController *threadVC = [[M3ThreadViewController alloc] initWithThread:thread];
     [self.navigationController pushViewController:threadVC animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}- (void)facebookViewControllerCancelWasPressed:(id)sender
+}
+
+- (void)facebookViewControllerCancelWasPressed:(id)sender
 {
     [sender dismissViewControllerAnimated:YES completion:nil];
 }
