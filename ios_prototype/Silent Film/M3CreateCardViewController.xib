@@ -23,10 +23,10 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="iYa-c1-miM">
-                    <rect key="frame" x="60" y="302" width="200" height="45"/>
+                    <rect key="frame" x="29" y="302" width="263" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" name="BodoniSvtyTwoSCITCTT-Book" family="Bodoni 72 Smallcaps" pointSize="27"/>
-                    <state key="normal" title="CREATE  CUE">
+                    <state key="normal" title="CREATE  ACTING  CUE">
                         <color key="titleColor" red="0.64642458545918369" green="0.051444729323171748" blue="0.053554612131766849" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
