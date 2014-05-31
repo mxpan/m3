@@ -40,6 +40,7 @@
 		BD7418E7192B30A40001C642 /* M3ThreadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD7418E6192B30A40001C642 /* M3ThreadViewController.xib */; };
 		BD8A8E1019359D6B0051CF06 /* M3StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8A8E0E19359D6B0051CF06 /* M3StartViewController.m */; };
 		BD8A8E1119359D6B0051CF06 /* M3StartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD8A8E0F19359D6B0051CF06 /* M3StartViewController.xib */; };
+		BD8DF00B193A88C600C49097 /* red-dot-hi.png in Resources */ = {isa = PBXBuildFile; fileRef = BD8DF00A193A88C600C49097 /* red-dot-hi.png */; };
 		BD99BC6E192C6F03003A03B3 /* M3ThreadListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD99BC6D192C6F03003A03B3 /* M3ThreadListViewController.xib */; };
 		BDB959FC190F67DF0092AD8F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDB959FB190F67DF0092AD8F /* Foundation.framework */; };
 		BDB959FE190F67DF0092AD8F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDB959FD190F67DF0092AD8F /* CoreGraphics.framework */; };
@@ -127,6 +128,7 @@
 		BD8A8E0D19359D6B0051CF06 /* M3StartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3StartViewController.h; sourceTree = "<group>"; };
 		BD8A8E0E19359D6B0051CF06 /* M3StartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3StartViewController.m; sourceTree = "<group>"; };
 		BD8A8E0F19359D6B0051CF06 /* M3StartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = M3StartViewController.xib; sourceTree = "<group>"; };
+		BD8DF00A193A88C600C49097 /* red-dot-hi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red-dot-hi.png"; sourceTree = "<group>"; };
 		BD99BC6D192C6F03003A03B3 /* M3ThreadListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = M3ThreadListViewController.xib; sourceTree = "<group>"; };
 		BDAEC1EE190F6F0C00B08C06 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		BDB959F8190F67DF0092AD8F /* Silent Film.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Silent Film.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -260,6 +262,7 @@
 		BD2FEC591910980E00C44ACB /* AV */ = {
 			isa = PBXGroup;
 			children = (
+				BD8DF00A193A88C600C49097 /* red-dot-hi.png */,
 				BD2FEC621910987400C44ACB /* AVCamViewController.xib */,
 				BD2FEC641910989400C44ACB /* AVCamPreviewView.h */,
 				BD2FEC651910989400C44ACB /* AVCamPreviewView.m */,
@@ -474,6 +477,7 @@
 				BD345E3419344846000FCDF3 /* video-icon.png in Resources */,
 				BD7418E7192B30A40001C642 /* M3ThreadViewController.xib in Resources */,
 				BD54770E1916FFF700C64850 /* silent-film.jpg in Resources */,
+				BD8DF00B193A88C600C49097 /* red-dot-hi.png in Resources */,
 				BD8A8E1119359D6B0051CF06 /* M3StartViewController.xib in Resources */,
 				BDB95A06190F67E00092AD8F /* InfoPlist.strings in Resources */,
 				BD99BC6E192C6F03003A03B3 /* M3ThreadListViewController.xib in Resources */,
