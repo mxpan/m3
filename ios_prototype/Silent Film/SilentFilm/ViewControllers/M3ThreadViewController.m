@@ -112,6 +112,27 @@ typedef enum {
     [self refresh];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (self.thread.freshPosts.count) {
+        M3Post *freshPostForMe = nil;
+        for (M3Post *post in self.thread.freshPosts) {
+            if (![post.user.objectId isEqual:[PFUser currentUser].objectId]) {
+                freshPostForMe = post;
+                break;
+            }
+        }
+        if (freshPostForMe) {
+            [UIAlertView bk_showAlertViewWithTitle:@"You have a challenge waiting!" message:@"Respond now?" cancelButtonTitle:@"Not right now" otherButtonTitles:@[@"Okay!"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                if (buttonIndex == 1) {
+                    [self startRespondingToPost:freshPostForMe];
+                }
+            }];
+        }
+    }
+}
+
 - (void)dealloc
 {
     [self.refreshTimer invalidate];
