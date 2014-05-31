@@ -28,7 +28,7 @@
                     <rect key="frame" x="0.0" y="460" width="320" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <items>
-                        <barButtonItem title="Start New Challenge Thread" width="303" id="2DX-S2-saP">
+                        <barButtonItem title="Start New Game" width="303" id="2DX-S2-saP">
                             <connections>
                                 <action selector="createThreadButtonPressed:" destination="-1" id="Xmd-eL-wqP"/>
                             </connections>
