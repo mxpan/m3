@@ -383,16 +383,6 @@ typedef enum {
     return @"";
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        M3Post *post = [self.thread.posts objectAtIndex:indexPath.row];
-        [post deleteInBackground];
-        [self.thread.posts removeObject:post];
-        [self.tableView reloadData];
-    }
-}
-
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
