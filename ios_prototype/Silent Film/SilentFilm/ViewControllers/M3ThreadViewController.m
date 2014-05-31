@@ -64,7 +64,7 @@ typedef enum {
 //            [self showTitleCardScreen];
 //        }];
 //        [self.navigationItem setRightBarButtonItem:button];
-        self.title = self.thread.title;
+        self.title = self.thread.otherUser.nickname;
         
         
         self.friendPicker = [FBFriendPickerViewController new];

@@ -53,14 +53,8 @@
 
 - (IBAction)createThreadButtonPressed:(id)sender
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Start new challenge thread" message:@"Title your thread:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-    alertView.tag = 2;
-    
-    UITextField *textField = [alertView textFieldAtIndex:0];
-    textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-    
-    [alertView show];
+    [self.friendPicker clearSelection];
+    [self presentViewController:self.friendPicker animated:YES completion:nil];
 }
 
 - (void)viewDidLoad
@@ -144,13 +138,12 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     
     if (self.threads.count) {
         M3Thread *thread = [self.threads objectAtIndex:indexPath.row];
         //        [[cell textLabel] setText:[NSString stringWithFormat:@"Thread with %@ (%@)", [[thread otherUser] objectForKey:@"nickname"], [thread objectId]]];
-        cell.textLabel.text = thread.title;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"with %@", thread.otherUser.nickname];
+        cell.textLabel.text = thread.otherUser.nickname;
     }
     
     return cell;
@@ -183,15 +176,8 @@
     }
 
     if (facebookIds.count) {
-        M3Thread *thread = [M3Thread new];
-        thread.users = @[[PFUser currentUser]];
-        thread.title = self.currentTitle;
-        [self.threads addObject:thread];
-        [thread saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            [self refresh];
-        }];
-        
         [picker dismissViewControllerAnimated:YES completion:^{
+            
             MBProgressHUD *progress = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             
             PFQuery *query = [PFUser query];
@@ -199,12 +185,24 @@
             [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 PFUser *otherUser = [objects firstObject];
                 
+                for (M3Thread *thread in self.threads) {
+                    if ([thread.otherUser.objectId isEqualToString:otherUser.objectId]) {
+                        [progress hide:YES];
+                        [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:[self.threads indexOfObject:thread] inSection:0]];
+                        return;
+                    }
+                }
+
+                M3Thread *thread = [M3Thread new];
+                thread.users = @[[PFUser currentUser], otherUser];
+                thread.title = self.currentTitle;
+                [self.threads addObject:thread];
+                
                 PFPush *push = [[PFPush alloc] init];
                 [push setChannel:[otherUser channelNameForNewThreads]];
                 [push setMessage:[NSString stringWithFormat:@"%@ has started a challenge thread with you!", [PFUser currentUser].nickname]];
                 [push sendPushInBackground];
                 
-                thread.users = @[[PFUser currentUser], otherUser];
                 [thread saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     [self refresh];
                     [progress hide:YES];
