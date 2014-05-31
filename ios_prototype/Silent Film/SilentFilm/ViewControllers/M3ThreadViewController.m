@@ -43,13 +43,14 @@ typedef enum {
 @property FBFriendPickerViewController *friendPicker;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *compileButton;
 
-
 @property NSTimer *refreshTimer;
 
 @property NSString *currentTitle;
 @property MPMoviePlayerViewController *currentPlayerVc;
 @property M3StartViewController *currentStart;
 @property M3Post *currentPost;
+
+@property BOOL hasShownNewPost;
 
 @end
 
@@ -66,6 +67,7 @@ typedef enum {
 //        [self.navigationItem setRightBarButtonItem:button];
         self.title = self.thread.otherUser.nickname;
         
+        self.hasShownNewPost = NO;
         
         self.friendPicker = [FBFriendPickerViewController new];
 
@@ -115,7 +117,7 @@ typedef enum {
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if (self.thread.freshPosts.count) {
+    if (self.thread.freshPosts.count && !self.hasShownNewPost) {
         M3Post *freshPostForMe = nil;
         for (M3Post *post in self.thread.freshPosts) {
             if (![post.user.objectId isEqual:[PFUser currentUser].objectId]) {
@@ -124,6 +126,7 @@ typedef enum {
             }
         }
         if (freshPostForMe) {
+            self.hasShownNewPost = YES;
             [UIAlertView bk_showAlertViewWithTitle:@"You have a challenge waiting!" message:@"Respond now?" cancelButtonTitle:@"Not right now" otherButtonTitles:@[@"Okay!"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
                 if (buttonIndex == 1) {
                     [self startRespondingToPost:freshPostForMe];
