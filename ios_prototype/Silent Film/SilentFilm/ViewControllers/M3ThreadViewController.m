@@ -271,30 +271,30 @@ typedef enum {
 
 - (void)startRespondingToPost:(M3Post*)post
 {
-    M3StartViewController *start = [M3StartViewController new];
-    [self.navigationController.view addSubview:start.view];
-    self.currentStart = start;
     self.currentPost = post;
-    
-    start.callback = ^{
-        [self.currentStart.view removeFromSuperview];
-        
-        NSURL *videoUrl = [NSURL URLWithString:post.video.url];
-        MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:videoUrl];
-        moviePlayer.moviePlayer.controlStyle = MPMovieControlStyleNone;
-        [[NSNotificationCenter defaultCenter] removeObserver:moviePlayer name:MPMoviePlayerPlaybackDidFinishNotification object:moviePlayer.moviePlayer];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieFinishedPlaying) name:MPMoviePlayerPlaybackDidFinishNotification object:moviePlayer.moviePlayer];
-        self.currentPlayerVc = moviePlayer;
-        [self presentViewController:moviePlayer animated:NO completion:nil];
-    };
-    [start start];
+    NSURL *videoUrl = [NSURL URLWithString:post.video.url];
+    MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:videoUrl];
+    moviePlayer.moviePlayer.controlStyle = MPMovieControlStyleNone;
+    [[NSNotificationCenter defaultCenter] removeObserver:moviePlayer name:MPMoviePlayerPlaybackDidFinishNotification object:moviePlayer.moviePlayer];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieFinishedPlaying) name:MPMoviePlayerPlaybackDidFinishNotification object:moviePlayer.moviePlayer];
+    self.currentPlayerVc = moviePlayer;
+    [self presentViewController:moviePlayer animated:NO completion:nil];
 }
 
 - (void)movieFinishedPlaying
 {
     [self.currentPlayerVc dismissViewControllerAnimated:YES completion:^{
         self.currentPlayerVc = nil;
-        [self respondToPost];
+        
+        M3StartViewController *start = [M3StartViewController new];
+        [self.navigationController.view addSubview:start.view];
+        self.currentStart = start;
+        
+        start.callback = ^{
+            [self.currentStart.view removeFromSuperview];
+            [self respondToPost];
+        };
+        [start start];
     }];
 }
 
