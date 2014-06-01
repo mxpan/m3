@@ -15,18 +15,22 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.49999999999999961" contentMode="center" fixedFrame="YES" image="bg_curtain.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="JIW-ex-ek4">
+                    <rect key="frame" x="-299" y="-102" width="900" height="628"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O1t-Sd-zbX">
-                    <rect key="frame" x="20" y="334" width="280" height="65"/>
+                    <rect key="frame" x="59" y="461" width="202" height="65"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Login with Facebook" image="login_strip.jpg">
+                    <state key="normal" title="Login with Facebook" image="fb_login.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="loginButtonPressed:" destination="-1" eventType="touchUpInside" id="uHw-H5-ogU"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="silentmovie_logo.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="b1i-ES-aik">
-                    <rect key="frame" x="6" y="83" width="309" height="223"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="yesand_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="6cg-Hv-VNQ">
+                    <rect key="frame" x="45" y="108" width="230" height="208"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
             </subviews>
@@ -34,9 +38,14 @@
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
+        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="bg_curtain.jpg" id="q2B-g6-CgA">
+            <rect key="frame" x="0.0" y="0.0" width="900" height="600"/>
+            <autoresizingMask key="autoresizingMask"/>
+        </imageView>
     </objects>
     <resources>
-        <image name="login_strip.jpg" width="1038" height="257"/>
-        <image name="silentmovie_logo.jpg" width="550" height="425"/>
+        <image name="bg_curtain.jpg" width="900" height="600"/>
+        <image name="fb_login.png" width="600" height="200"/>
+        <image name="yesand_logo.png" width="1711" height="1599"/>
     </resources>
 </document>
