@@ -276,6 +276,12 @@ typedef enum {
                         [push setChannel:[self.thread.otherUser channelName]];
                         [push sendPushInBackground];
                     }];
+                    
+                    [UIAlertView bk_showAlertViewWithTitle:@"Great job! Now it's your turn!" message:[NSString stringWithFormat:@"Send %@ a Challenge!", self.thread.otherUser.firstName] cancelButtonTitle:@"No thanks!" otherButtonTitles:@[@"Let's Do It!"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                        if (buttonIndex == 1) {
+                            [self showTitleCardScreen];
+                        }
+                    }];
                 }];
                 
             } progressBlock:^(int percentDone) {
