@@ -28,4 +28,23 @@
     return [NSString stringWithFormat:@"new-post_%@_%@", self.objectId, thread.objectId];
 }
 
+- (BOOL)isEqualToCurrentUser
+{
+    return [self isEqualToUser:[PFUser currentUser]];
+}
+
+- (BOOL)isEqualToUser:(PFUser*)user
+{
+    return [self.objectId isEqualToString:user.objectId];
+}
+
+- (NSString *)firstName
+{
+    NSArray *names = [self.nickname componentsSeparatedByString:@" "];
+    if (names.count) {
+        return [names firstObject];
+    }
+    return @"";
+}
+
 @end

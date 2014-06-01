@@ -43,6 +43,12 @@
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.inputTextField becomeFirstResponder];
+}
+
 - (IBAction)userDoneEnteringText:(UITextField *)sender {
     [sender resignFirstResponder];
 }

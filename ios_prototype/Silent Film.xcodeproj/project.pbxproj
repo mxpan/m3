@@ -41,6 +41,12 @@
 		BD8A8E1019359D6B0051CF06 /* M3StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8A8E0E19359D6B0051CF06 /* M3StartViewController.m */; };
 		BD8A8E1119359D6B0051CF06 /* M3StartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD8A8E0F19359D6B0051CF06 /* M3StartViewController.xib */; };
 		BD8DF00B193A88C600C49097 /* red-dot-hi.png in Resources */ = {isa = PBXBuildFile; fileRef = BD8DF00A193A88C600C49097 /* red-dot-hi.png */; };
+		BD8DF00F193A968400C49097 /* M3ThreadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8DF00D193A968400C49097 /* M3ThreadTableViewCell.m */; };
+		BD8DF010193A968400C49097 /* M3ThreadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD8DF00E193A968400C49097 /* M3ThreadTableViewCell.xib */; };
+		BD8DF014193AA30500C49097 /* M3PostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8DF012193AA30500C49097 /* M3PostTableViewCell.m */; };
+		BD8DF015193AA30500C49097 /* M3PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD8DF013193AA30500C49097 /* M3PostTableViewCell.xib */; };
+		BD8DF018193AAC5B00C49097 /* question.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BD8DF016193AAC5B00C49097 /* question.jpg */; };
+		BD8DF019193AAC5B00C49097 /* exclamation.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BD8DF017193AAC5B00C49097 /* exclamation.jpg */; };
 		BD99BC6E192C6F03003A03B3 /* M3ThreadListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD99BC6D192C6F03003A03B3 /* M3ThreadListViewController.xib */; };
 		BDB959FC190F67DF0092AD8F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDB959FB190F67DF0092AD8F /* Foundation.framework */; };
 		BDB959FE190F67DF0092AD8F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDB959FD190F67DF0092AD8F /* CoreGraphics.framework */; };
@@ -129,6 +135,14 @@
 		BD8A8E0E19359D6B0051CF06 /* M3StartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3StartViewController.m; sourceTree = "<group>"; };
 		BD8A8E0F19359D6B0051CF06 /* M3StartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = M3StartViewController.xib; sourceTree = "<group>"; };
 		BD8DF00A193A88C600C49097 /* red-dot-hi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red-dot-hi.png"; sourceTree = "<group>"; };
+		BD8DF00C193A968400C49097 /* M3ThreadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3ThreadTableViewCell.h; sourceTree = "<group>"; };
+		BD8DF00D193A968400C49097 /* M3ThreadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3ThreadTableViewCell.m; sourceTree = "<group>"; };
+		BD8DF00E193A968400C49097 /* M3ThreadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = M3ThreadTableViewCell.xib; sourceTree = "<group>"; };
+		BD8DF011193AA30500C49097 /* M3PostTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3PostTableViewCell.h; sourceTree = "<group>"; };
+		BD8DF012193AA30500C49097 /* M3PostTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3PostTableViewCell.m; sourceTree = "<group>"; };
+		BD8DF013193AA30500C49097 /* M3PostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = M3PostTableViewCell.xib; sourceTree = "<group>"; };
+		BD8DF016193AAC5B00C49097 /* question.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = question.jpg; sourceTree = "<group>"; };
+		BD8DF017193AAC5B00C49097 /* exclamation.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = exclamation.jpg; sourceTree = "<group>"; };
 		BD99BC6D192C6F03003A03B3 /* M3ThreadListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = M3ThreadListViewController.xib; sourceTree = "<group>"; };
 		BDAEC1EE190F6F0C00B08C06 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		BDB959F8190F67DF0092AD8F /* Silent Film.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Silent Film.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -219,6 +233,9 @@
 				BD2FEC3E19104C5B00C44ACB /* M3ThreadListViewController.h */,
 				BD2FEC3F19104C5B00C44ACB /* M3ThreadListViewController.m */,
 				BD99BC6D192C6F03003A03B3 /* M3ThreadListViewController.xib */,
+				BD8DF00C193A968400C49097 /* M3ThreadTableViewCell.h */,
+				BD8DF00D193A968400C49097 /* M3ThreadTableViewCell.m */,
+				BD8DF00E193A968400C49097 /* M3ThreadTableViewCell.xib */,
 				BD2FEC491910572800C44ACB /* M3ThreadViewController.h */,
 				BD2FEC4A1910572800C44ACB /* M3ThreadViewController.m */,
 				BD7418E6192B30A40001C642 /* M3ThreadViewController.xib */,
@@ -228,6 +245,9 @@
 				BD8A8E0D19359D6B0051CF06 /* M3StartViewController.h */,
 				BD8A8E0E19359D6B0051CF06 /* M3StartViewController.m */,
 				BD8A8E0F19359D6B0051CF06 /* M3StartViewController.xib */,
+				BD8DF011193AA30500C49097 /* M3PostTableViewCell.h */,
+				BD8DF012193AA30500C49097 /* M3PostTableViewCell.m */,
+				BD8DF013193AA30500C49097 /* M3PostTableViewCell.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -354,6 +374,8 @@
 		BDB95A02190F67E00092AD8F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BD8DF016193AAC5B00C49097 /* question.jpg */,
+				BD8DF017193AAC5B00C49097 /* exclamation.jpg */,
 				3253CB041936E58200EBB1CF /* bg_curtain.jpg */,
 				BD345E3519344EE6000FCDF3 /* balloons_with_background.jpg */,
 				BD345E3319344846000FCDF3 /* video-icon.png */,
@@ -478,15 +500,19 @@
 				BD7418E7192B30A40001C642 /* M3ThreadViewController.xib in Resources */,
 				BD54770E1916FFF700C64850 /* silent-film.jpg in Resources */,
 				BD8DF00B193A88C600C49097 /* red-dot-hi.png in Resources */,
+				BD8DF018193AAC5B00C49097 /* question.jpg in Resources */,
 				BD8A8E1119359D6B0051CF06 /* M3StartViewController.xib in Resources */,
 				BDB95A06190F67E00092AD8F /* InfoPlist.strings in Resources */,
 				BD99BC6E192C6F03003A03B3 /* M3ThreadListViewController.xib in Resources */,
 				34A56E03191701F700F12D84 /* silent movie card portrait.jpg in Resources */,
+				BD8DF015193AA30500C49097 /* M3PostTableViewCell.xib in Resources */,
 				BD345E3619344EE6000FCDF3 /* balloons_with_background.jpg in Resources */,
 				BD2FEC631910987400C44ACB /* AVCamViewController.xib in Resources */,
 				BD2FEC541910846200C44ACB /* M3SignUpViewController.xib in Resources */,
 				34A56DFB1916F5CA00F12D84 /* M3CreateCardViewController.xib in Resources */,
 				BD2FEC4D19105C4E00C44ACB /* test7.mp4 in Resources */,
+				BD8DF010193A968400C49097 /* M3ThreadTableViewCell.xib in Resources */,
+				BD8DF019193AAC5B00C49097 /* exclamation.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,11 +564,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD8DF014193AA30500C49097 /* M3PostTableViewCell.m in Sources */,
 				3257FD45192C4D5500F5B710 /* M3CompiledVideo.m in Sources */,
 				BD2FEC4B1910572800C44ACB /* M3ThreadViewController.m in Sources */,
 				BD2FEC3D19104C0700C44ACB /* M3NavigationController.m in Sources */,
 				34A56DFA1916F5CA00F12D84 /* M3CreateCardViewController.m in Sources */,
 				BD2FEC681910989400C44ACB /* AVCamPreviewView.m in Sources */,
+				BD8DF00F193A968400C49097 /* M3ThreadTableViewCell.m in Sources */,
 				BDB95A0C190F67E00092AD8F /* M3AppDelegate.m in Sources */,
 				BD54770A1916E95D00C64850 /* M3AssetRenderer.m in Sources */,
 				BD2FEC531910846200C44ACB /* M3SignUpViewController.m in Sources */,

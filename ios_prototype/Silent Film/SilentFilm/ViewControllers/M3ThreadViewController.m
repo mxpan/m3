@@ -25,6 +25,8 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "PFUser+SilentFilm.h"
 #import <Social/Social.h>
+#import "M3PostTableViewCell.h"
+#import <UIImageView+WebCache.h>
 
 typedef enum {
     kSectionFreshPosts,
@@ -50,7 +52,7 @@ typedef enum {
 @property M3StartViewController *currentStart;
 @property M3Post *currentPost;
 
-@property BOOL hasShownNewPost;
+@property BOOL hasAppeared;
 
 @end
 
@@ -67,7 +69,7 @@ typedef enum {
 //        [self.navigationItem setRightBarButtonItem:button];
         self.title = self.thread.otherUser.nickname;
         
-        self.hasShownNewPost = NO;
+        self.hasAppeared = NO;
         
         self.friendPicker = [FBFriendPickerViewController new];
 
@@ -90,6 +92,7 @@ typedef enum {
 - (void)refresh
 {
     [self.tableView reloadData];
+    
     [self.thread fetchPostsWithCallback:^(NSArray *newPosts) {
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
@@ -106,6 +109,9 @@ typedef enum {
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
+    [self.tableView registerNib:[UINib nibWithNibName:@"M3PostTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];
+    self.tableView.rowHeight = 80;
+    
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:self.refreshControl];
@@ -117,21 +123,23 @@ typedef enum {
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if (self.thread.freshPosts.count && !self.hasShownNewPost) {
-        M3Post *freshPostForMe = nil;
-        for (M3Post *post in self.thread.freshPosts) {
-            if (![post.user.objectId isEqual:[PFUser currentUser].objectId]) {
-                freshPostForMe = post;
-                break;
-            }
-        }
-        if (freshPostForMe) {
-            self.hasShownNewPost = YES;
-            [UIAlertView bk_showAlertViewWithTitle:@"You have a challenge waiting!" message:@"Respond now?" cancelButtonTitle:@"Not right now" otherButtonTitles:@[@"Okay!"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                if (buttonIndex == 1) {
-                    [self startRespondingToPost:freshPostForMe];
+    if (!self.hasAppeared) {
+        self.hasAppeared = YES;
+        if (self.thread.freshPosts.count) {
+            M3Post *freshPostForMe = nil;
+            for (M3Post *post in self.thread.freshPosts) {
+                if (![post.user.objectId isEqual:[PFUser currentUser].objectId]) {
+                    freshPostForMe = post;
+                    break;
                 }
-            }];
+            }
+            if (freshPostForMe) {
+                [UIAlertView bk_showAlertViewWithTitle:@"You have a challenge waiting!" message:@"Respond now?" cancelButtonTitle:@"Not right now" otherButtonTitles:@[@"Okay!"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                    if (buttonIndex == 1) {
+                        [self startRespondingToPost:freshPostForMe];
+                    }
+                }];
+            }
         }
     }
 }
@@ -180,25 +188,33 @@ typedef enum {
         [M3AssetRenderer getAssetForTitleCard:self.titleCard withIndex:0 withCallback:^(AVAsset *asset, NSURL *url) {
             PFFile *video = [PFFile fileWithName:@"video.mp4" data:[NSData dataWithContentsOfURL:url]];
             [video saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-                    M3Post *post = [M3Post new];
-                    post.state = kFresh;
-                    post.title = [createCardViewController cardTitle];
-                    post.thread = self.thread;
-                    post.video = video;
-                    post.user = [PFUser currentUser];
-                    
-                    [self.thread.posts addObject:post];
-                    [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                AVAsset *asset = [AVAsset assetWithURL:url];
+                AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+                UIImage *thumbnail = [UIImage imageWithCGImage:[generator copyCGImageAtTime:CMTimeMake(1, 1) actualTime:nil error:nil]];
+                PFFile *thumbnailFile = [PFFile fileWithName:@"thumbnail.jpg" data:UIImageJPEGRepresentation(thumbnail, 1.0)];
+                
+                [thumbnailFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (succeeded) {
+                        M3Post *post = [M3Post new];
+                        post.state = kFresh;
+                        post.title = [createCardViewController cardTitle];
+                        post.thread = self.thread;
+                        post.video = video;
+                        post.user = [PFUser currentUser];
+                        post.thumbnail = thumbnailFile;
+                        
+                        [self.thread.posts addObject:post];
+                        [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                            [hud hide:YES];
+                            PFPush *push = [PFPush new];
+                            [push setMessage:[NSString stringWithFormat:@"New challenge from %@!", [PFUser currentUser].nickname]];
+                            [push setChannel:[self.thread.otherUser channelName]];
+                            [push sendPushInBackground];
+                        }];
+                    } else {
                         [hud hide:YES];
-                        PFPush *push = [PFPush new];
-                        [push setMessage:[NSString stringWithFormat:@"New challenge from %@!", [PFUser currentUser].nickname]];
-                        [push setChannel:[self.thread.otherUser channelName]];
-                        [push sendPushInBackground];
-                    }];
-                } else {
-                    [hud hide:YES];
-                }
+                    }
+                }];
             }];
         }];
     }];
@@ -242,17 +258,26 @@ typedef enum {
         [video exportWithCallback:^{
             PFFile *newVideo = [PFFile fileWithName:@"video.mp4" data:[NSData dataWithContentsOfURL:video.outputURL]];
             [newVideo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                self.currentPost.video = newVideo;
-                self.currentPost.state = kResponded;
-                [self.currentPost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    [progressHud hide:YES];
-                    [self.tableView reloadData];
+                AVAsset *asset = [AVAsset assetWithURL:video.outputURL];
+                AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+                UIImage *thumbnail = [UIImage imageWithCGImage:[generator copyCGImageAtTime:CMTimeMake(4, 1) actualTime:nil error:nil]];
+                PFFile *thumbnailFile = [PFFile fileWithName:@"thumbnail.jpg" data:UIImageJPEGRepresentation(thumbnail, 1.0)];
+                [thumbnailFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    self.currentPost.video = newVideo;
+                    self.currentPost.state = kResponded;
+                    self.currentPost.thumbnail = thumbnailFile;
                     
-                    PFPush *push = [PFPush new];
-                    [push setMessage:[NSString stringWithFormat:@"%@ responded to your challenge!", [PFUser currentUser].nickname]];
-                    [push setChannel:[self.thread.otherUser channelName]];
-                    [push sendPushInBackground];
+                    [self.currentPost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        [progressHud hide:YES];
+                        [self.tableView reloadData];
+                        
+                        PFPush *push = [PFPush new];
+                        [push setMessage:[NSString stringWithFormat:@"%@ responded to your challenge!", [PFUser currentUser].nickname]];
+                        [push setChannel:[self.thread.otherUser channelName]];
+                        [push sendPushInBackground];
+                    }];
                 }];
+                
             } progressBlock:^(int percentDone) {
                 progressHud.progress = percentDone / 100.0f;
             }];
@@ -409,13 +434,16 @@ typedef enum {
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
- 
+    M3PostTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    cell.unreadIcon.hidden = YES;
+    
     M3Post *post;
     if (indexPath.section == kSectionFreshPosts) {
         if (!self.thread.freshPosts.count) {
-            cell.textLabel.text = [NSString stringWithFormat:@"Challenge %@!", self.thread.otherUser.nickname];
-            cell.textLabel.font = [UIFont boldSystemFontOfSize:cell.textLabel.font.pointSize];
+            cell.titleLabel.text = [NSString stringWithFormat:@"Tap here to Challenge %@", self.thread.otherUser.firstName];
+            cell.titleLabel.font = [UIFont boldSystemFontOfSize:cell.titleLabel.font.pointSize];
+            cell.subtitleLabel.text = [NSString stringWithFormat:@"%@ will have to do exactly as you say!", self.thread.otherUser.firstName];
+            [cell.icon setImage:[UIImage imageNamed:@"exclamation.jpg"]];
             return cell;
         }
         post = [self.thread.freshPosts objectAtIndex:indexPath.row];
@@ -423,16 +451,32 @@ typedef enum {
         post = [self.thread.respondedPosts objectAtIndex:indexPath.row];
     }
     if (post) {
-        NSString *title = post.title;
-        if (post.state == kFresh && ![post.user.objectId isEqual:[PFUser currentUser].objectId]) {
-            title = @"??????";
+
+        if (post.state == kFresh) {
+            if (![post.user.objectId isEqual:[PFUser currentUser].objectId]) {
+                cell.titleLabel.text = @"New Challenge!";
+                cell.subtitleLabel.text = @"Tap to respond!";
+                [cell.icon setImage:[UIImage imageNamed:@"question.jpg"]];
+            } else {
+                cell.titleLabel.text = post.title;
+                cell.subtitleLabel.text = [NSString stringWithFormat:@"Waiting for %@ to respond...", self.thread.otherUser.firstName];
+            }
+        } else {
+            cell.titleLabel.text = [NSString stringWithFormat:@"%d. \"%@\"", indexPath.row+1, post.title];
+            
+            NSDateFormatter *format = [[NSDateFormatter alloc] init];
+            [format setDateFormat:@"MMM dd, yyyy hh:mm a"];
+            NSString *dateString = [format stringFromDate:post.updatedAt];
+            cell.subtitleLabel.text = [NSString stringWithFormat:@"Finished: %@", dateString];
+            if (post.thumbnail) {
+                [cell.icon setImageWithURL:[NSURL URLWithString:post.thumbnail.url]];
+            }
         }
-        cell.textLabel.text = [NSString stringWithFormat:@"%d. \"%@\" by %@", indexPath.row+1, title, post.user.nickname];
-        NSDateFormatter *format = [[NSDateFormatter alloc] init];
-        [format setDateFormat:@"MMM dd, yyyy hh:mm a"];
-        NSString *dateString = [format stringFromDate:post.createdAt];
+
         
-        cell.detailTextLabel.text = dateString;
+        if (post.state == kResponded && [post.user isEqualToCurrentUser]) {
+            cell.unreadIcon.hidden = NO;
+        }
     }
     
     return cell;
@@ -462,6 +506,11 @@ typedef enum {
     
     if (indexPath.section == kSectionRespondedPosts) {
         M3Post *post = [self.thread.posts objectAtIndex:indexPath.row];
+        if (post.state == kResponded && [post.user isEqualToCurrentUser]) {
+            post.state = kResponseViewed;
+            [post saveInBackground];
+        }
+        
         NSURL *videoUrl = [NSURL URLWithString:post.video.url];
         MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:videoUrl];
         [self presentMoviePlayerViewControllerAnimated:moviePlayer];

@@ -11,7 +11,7 @@
 
 @implementation M3Post
 
-@dynamic thread, user, video, title, state;
+@dynamic thread, user, video, title, state, thumbnail;
 
 + (NSString*) parseClassName
 {

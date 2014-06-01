@@ -129,6 +129,7 @@
         if (callback) {
             callback(newPosts);
         }
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"posts" object:self];
     }];
 }
 
@@ -159,7 +160,7 @@
 - (NSArray *)respondedPosts
 {
     return [self.posts bk_select:^BOOL(M3Post *post) {
-        return post.state == kResponded;
+        return post.state >= kResponded;
     }];
 }
 

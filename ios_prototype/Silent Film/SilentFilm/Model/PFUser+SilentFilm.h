@@ -19,4 +19,9 @@
 - (NSString*)channelNameForNewThreads;
 - (NSString*)channelNameForNewPostInThread:(M3Thread*)thread;
 
+- (BOOL)isEqualToCurrentUser;
+- (BOOL)isEqualToUser:(PFUser*)user;
+
+- (NSString *)firstName;
+
 @end

@@ -17,3 +17,4 @@
 
 #import <Parse/Parse.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import "PFUser+SilentFilm.h"

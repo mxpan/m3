@@ -13,6 +13,7 @@
 #import "PFUser+SilentFilm.h"
 #import <UIAlertView+BlocksKit.h>
 #import <MBProgressHUD.h>
+#import "M3ThreadTableViewCell.h"
 
 @interface M3ThreadListViewController () <UIAlertViewDelegate, FBFriendPickerDelegate>
 
@@ -65,6 +66,9 @@
     [refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:refreshControl];
     self.refreshControl = refreshControl;
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"M3ThreadTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];
+    self.tableView.rowHeight = 80;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -138,12 +142,12 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    M3ThreadTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     
     if (self.threads.count) {
         M3Thread *thread = [self.threads objectAtIndex:indexPath.row];
-        //        [[cell textLabel] setText:[NSString stringWithFormat:@"Thread with %@ (%@)", [[thread otherUser] objectForKey:@"nickname"], [thread objectId]]];
-        cell.textLabel.text = thread.otherUser.nickname;
+        cell.titleLabel.text = thread.otherUser.nickname;
+        cell.thread = thread;
     }
     
     return cell;

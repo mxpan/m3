@@ -22,6 +22,9 @@ PODS:
     - Facebook-iOS-SDK (~> 3.11)
   - PonyDebugger (0.3.1):
     - SocketRocket
+  - SDWebImage (3.6):
+    - SDWebImage/Core
+  - SDWebImage/Core (3.6)
   - SocketRocket (0.3.1-beta2)
 
 DEPENDENCIES:
@@ -30,6 +33,7 @@ DEPENDENCIES:
   - MBProgressHUD
   - Parse
   - PonyDebugger
+  - SDWebImage
 
 SPEC CHECKSUMS:
   BlocksKit: 07c8a80f04275efac6a5f8b973782489c083a182
@@ -38,6 +42,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: c356980b0cd097f19acec959b49dca5eb8ec31be
   Parse: ffebaecaddd32cb52671010f81567c298ff93d04
   PonyDebugger: 256e19c15c093e15f950f92b1a5017f3feb3c87e
+  SDWebImage: c6989652c1cdf27cbdf3f56957e2030f825af5bc
   SocketRocket: 79a68ae186063c65e1fe6f638b1ae2927aa5f304
 
 COCOAPODS: 0.33.1

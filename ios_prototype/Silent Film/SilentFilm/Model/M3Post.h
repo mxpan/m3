@@ -11,7 +11,8 @@
 
 typedef enum {
     kFresh,
-    kResponded
+    kResponded,
+    kResponseViewed
 } PostState;
 
 @interface M3Post : PFObject <PFSubclassing>
@@ -21,5 +22,6 @@ typedef enum {
 @property PFFile *video;
 @property NSString *title;
 @property PostState state;
+@property PFFile *thumbnail;
 
 @end
