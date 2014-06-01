@@ -27,7 +27,7 @@
  
     [[NSNotificationCenter defaultCenter] addObserverForName:@"posts" object:thread queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         if (self.thread.freshPosts.count == 0) {
-            self.subtitleLabel.text = @"Make a challenge!";
+            self.subtitleLabel.text = @"Send a challenge!";
         } else {
             BOOL waitingForMe = NO;
             for (M3Post *post in self.thread.freshPosts) {
