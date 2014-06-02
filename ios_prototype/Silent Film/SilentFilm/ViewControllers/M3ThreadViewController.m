@@ -134,7 +134,7 @@ typedef enum {
                 }
             }
             if (freshPostForMe) {
-                [UIAlertView bk_showAlertViewWithTitle:@"You have a challenge waiting!" message:@"Respond now?" cancelButtonTitle:@"Not right now" otherButtonTitles:@[@"Okay!"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                [UIAlertView bk_showAlertViewWithTitle:@"You have a silent video challenge waiting!" message:@"Respond now?" cancelButtonTitle:@"Not right now" otherButtonTitles:@[@"Okay!"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
                     if (buttonIndex == 1) {
                         [self startRespondingToPost:freshPostForMe];
                     }
@@ -460,7 +460,7 @@ typedef enum {
 
         if (post.state == kFresh) {
             if (![post.user.objectId isEqual:[PFUser currentUser].objectId]) {
-                cell.titleLabel.text = @"New Challenge!";
+                cell.titleLabel.text = @"New Silent Video Challenge!";
                 cell.subtitleLabel.text = @"Tap to respond!";
                 [cell.icon setImage:[UIImage imageNamed:@"question.jpg"]];
             } else {
@@ -468,7 +468,7 @@ typedef enum {
                 cell.subtitleLabel.text = [NSString stringWithFormat:@"Waiting for %@ to respond...", self.thread.otherUser.firstName];
             }
         } else {
-            cell.titleLabel.text = [NSString stringWithFormat:@"%d. \"%@\"", indexPath.row+1, post.title];
+            cell.titleLabel.text = [NSString stringWithFormat:@"%d. \"%@\" by %@", indexPath.row+1, post.title, post.user.firstName];
             
             NSDateFormatter *format = [[NSDateFormatter alloc] init];
             [format setDateFormat:@"MMM dd, yyyy hh:mm a"];
@@ -500,7 +500,7 @@ typedef enum {
             M3Post *post = [self.thread.freshPosts objectAtIndex:indexPath.row];
             if (post) {
                 if (![post.user.objectId isEqualToString:[PFUser currentUser].objectId]) {
-                    [UIAlertView bk_showAlertViewWithTitle:@"Start Challenge?" message:@"Once you start, you can't stop!" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Go!"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                    [UIAlertView bk_showAlertViewWithTitle:@"Start Silent Video Challenge?" message:@"Once you start, you can't stop!" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Go!"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
                         if (buttonIndex == 1) {
                             [self startRespondingToPost:post];
                         }
