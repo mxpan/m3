@@ -468,7 +468,11 @@ typedef enum {
                 cell.subtitleLabel.text = [NSString stringWithFormat:@"Waiting for %@ to respond...", self.thread.otherUser.firstName];
             }
         } else {
-            cell.titleLabel.text = [NSString stringWithFormat:@"%d. \"%@\" by %@", indexPath.row+1, post.title, post.user.firstName];
+            NSString *name;
+            if (![post.user.firstName isEqualToString:((PFUser *)(self.thread.users[0])).firstName]) name = ((PFUser *)(self.thread.users[0])).firstName;
+            else name = ((PFUser *)(self.thread.users[1])).firstName;
+//            if (post.user.firstName == self.thread.users[0].firstName)
+            cell.titleLabel.text = [NSString stringWithFormat:@"%d. \"%@\" by %@", indexPath.row+1, post.title, name];
             
             NSDateFormatter *format = [[NSDateFormatter alloc] init];
             [format setDateFormat:@"MMM dd, yyyy hh:mm a"];
